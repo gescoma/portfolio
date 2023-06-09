@@ -1,0 +1,11 @@
+{
+  "header": {
+    "home": "Inicio",
+    "projects": "Proyectos",
+    "contact": "Contacto"
+  },
+  "presentation": {
+    "title": "Soy Gerard, desarrollador web, convierto ideas en realidades digitales",
+    "body": "Me gusta el diseño y me preocupo de que tenga un impacto positivo. me gusta crear grandes experiencias basadas en el ususario."
+  }
+}

@@ -2,10 +2,23 @@
 import { changeLanguage } from "i18next";
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
+import { t, changeLanguage } from "i18next";
 
 changeLanguage("en");
 ---
 
 <Layout title="Welcome to Astro.">
-	
+  <section class="presentation" title="presentation">
+    <Card
+      title={t("presentation.title")}
+      body={t("presentation.body")}
+      type="big"
+    />
+  </section>
 </Layout>
+
+<style>
+  .presentation {
+    grid-column: 1 / 5;
+  }
+</style>

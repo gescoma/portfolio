@@ -1,15 +1,23 @@
+---
+import { t } from "i18next";
+import { LanguageSelector } from "astro-i18next/components";
+---
+
 <header>
   <h1 class="h1">Gerard Escòlies Martínez</h1>
   <nav>
     <ul>
       <li>
-        <a href="#" class="active">Home</a>
+        <a href="#">{t("header.home")}</a>
       </li>
       <li>
-        <a href="#projects">Projects</a>
+        <a href="#projects" class="active">{t("header.projects")}</a>
       </li>
       <li>
-        <a href="#contact" class="active">Contact</a>
+        <a href="#contact">{t("header.contact")}</a>
+      </li>
+      <li>
+        <LanguageSelector class="languages" />
       </li>
     </ul>
   </nav>
@@ -17,10 +25,16 @@
 
 <style>
   .h1 {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 700;
     margin: 0;
   }
+
+  .h1::before {
+    content: "👋";
+    margin-right: 0.5rem;
+  }
+
   header {
     display: flex;
     justify-content: space-between;
@@ -36,10 +50,14 @@
     color: #000;
     padding: 0.5rem 1rem;
     line-height: 0.8rem;
+    transition: background-color 0.2s ease-in-out;
   }
 
   a.active {
     font-weight: 700;
+  }
+
+  a:hover {
     background-color: #f0f0f0;
     border-radius: 0.5rem;
   }
