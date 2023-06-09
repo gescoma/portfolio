@@ -7,15 +7,11 @@
 		"start": "astro dev",
 		"build": "astro build",
 		"preview": "astro preview",
-		"astro": "astro",
-		"i18n:install": "astro-i18n install",
-		"i18n:sync": "astro-i18n sync",
-		"i18n:extract:keys": "astro-i18n extract:keys"
+		"astro": "astro"
 	},
 	"dependencies": {
 		"@astrojs/preact": "2.2.1",
 		"astro": "2.6.2",
-		"astro-i18n": "1.8.1",
 		"preact": "10.15.1"
 	}
 }
