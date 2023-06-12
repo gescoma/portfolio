@@ -1,0 +1,62 @@
+---
+export interface Props {
+  href: string
+  type?: "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark"
+  size?: "normal" | "large" | "small" | "block"
+}
+
+const { href, type = "dark", size = "normal" } = Astro.props
+---
+
+<a href={href} class={`${type} btn ${size}`}><slot/></a>
+
+<style>
+  .normal {
+    --size: 0.625rem;
+    --font-size: 0.875rem;
+  }
+
+  .small {
+    --size: 0.5rem;
+    --font-size: 0.75rem;
+  }
+
+  .large {
+    --size: 0.75rem;
+    --font-size: 1rem;
+  }
+
+  .dark {
+    --btn-color: #fff;
+    --btn-background-color: #000;
+  }
+
+  .dark:hover {
+    --btn-color: #fff;
+    --btn-background-color: #23272b;
+  }
+
+  .light {
+    --btn-color: #000;
+    --btn-background-color: #fff;
+  }
+
+  .light:hover {
+    --btn-color: #000;
+    --btn-background-color: #f8f9fa;
+  }
+
+  .btn {
+    text-decoration: none;
+    background-color: transparent;
+    padding: var(--size) calc(3 * var(--size));
+    border-radius: calc(3*var(--size));
+    font-size: var(--font-size);
+    color: var(--btn-color, #212529);
+    background-color: var(--btn-background-color, #fff);
+    transition: background-color 0.2s ease-in-out;
+  }
+
+
+
+</style>
