@@ -3,6 +3,7 @@ import { changeLanguage } from "i18next";
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
 import { t, changeLanguage } from "i18next";
+import Link from "../components/Link.astro";
 
 changeLanguage("en");
 ---
@@ -12,8 +13,12 @@ changeLanguage("en");
     <Card
       title={t("presentation.title")}
       body={t("presentation.body")}
-      type="big"
-    />
+      size="large"
+    >
+      <Link href="/docs/getting-started">Get started</Link>
+      <Link href="/docs/getting-started" type="info">Get started</Link>
+      <Link href="/docs/getting-started" type="light">Get started</Link>
+    </Card>
   </section>
 </Layout>
 
