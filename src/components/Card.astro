@@ -1,56 +1,106 @@
 ---
 export interface Props {
-  title: string
-  body: string
+  title?: string
+  body?: string
   size?: "small" | "medium" | "large"
+  backgroundType?: "color" | "gradient" | "image"
+  backgroundImage?: string
+  backgroundColors?: {
+    primary: string
+    secondary: string
+  }
 }
 
-const { title, body, size = "medium" } = Astro.props
+const { title, body, size = "medium", backgroundType = "color", backgroundColors = {primary: "var(--secondary-hex)", secondary: "var(--accent-hex)"}, backgroundImage = "https://placehold.co/600x500" } = Astro.props
 ---
 
-<article class="link-card">
-  <h2>
+{backgroundType === "gradient" && (
+  <span class="card-circle-2"  />
+  <span class="card-circle-1" />
+)}
+<article class={`link-card ${size} ${backgroundType === "image" && "link-image"}`}>
+  {title && <h2>
     {title}
-  </h2>
-  <h3>
+  </h2>}
+  {body && <h3>
     {body}
-  </h3>
+  </h3>}
   <div class="link-card__body">
     <slot />
   </div>
+  <div class="link-card__extended">
+    onclick body
+  </div>
 </article>
-<style>
+<style define:vars={{ primaryColor: backgroundColors.primary , secondaryColor: backgroundColors.secondary, imageUrl: `url("${backgroundImage}")` }}>
   .link-card {
-    position: relative;
-    list-style: none;
     display: flex;
     flex-direction: column;
     padding: 2rem;
     background-color: rgba(218, 227, 229, 15%);
-    border-radius: 0.6rem;
     backdrop-filter: blur(10px);
-    transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-    z-index:1;
+    height: 100%;
   }
-
-  .link-card::before {
-    content: "";
+  .card-circle-1 {
     position: absolute;
     top: -327px;
     right: 0;
     width: 380px;
     height: 380px;
-    background-color: red;
     border-radius: 100%;
+    background: var(--primaryColor);
+    box-shadow: 0px 0px 200px 200px var(--primaryColor);
+    opacity: 0.5;
   }
-
+  .card-circle-2 {
+    position: absolute;
+    bottom: -147px;
+    right: -18px;
+    width: 427px;
+    height: 343px;
+    border-radius: 100%;
+    background: var(--secondaryColor);
+    box-shadow: 0px 0px 200px 200px var(--secondaryColor);
+    opacity: 0.5;
+  }
   h2 {
     margin: 0;
     font-size: 1.25rem;
     transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   }
   h3 {
-    margin-top: 0.5rem;
-    color: #444;
+    margin-top: 1.5rem;
+  }
+
+  @media (min-width: 992px) {
+    h3 {
+      margin-top: 3rem;
+    }
+  }
+  
+
+  .large h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+  }
+
+  .large h3 {
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  .link-card__body {
+    margin-top: auto;
+  }
+
+  .link-card__extended {
+    display: none;
+  }
+
+  .link-image {
+    background-image: var(--imageUrl);
+    background-size: cover;
+    background-position: center;
   }
 </style>
