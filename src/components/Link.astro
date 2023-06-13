@@ -3,12 +3,13 @@ export interface Props {
   href: string
   type?: "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark"
   size?: "normal" | "large" | "small" | "block"
+  icon?: boolean
 }
 
-const { href, type = "dark", size = "normal" } = Astro.props
+const { href, type = "dark", size = "normal", icon = false } = Astro.props
 ---
 
-<a href={href} class={`${type} btn ${size}`}><slot/></a>
+<a href={href} class={`${type} btn ${size} btn-${icon && "icon"}`}><slot/></a>
 
 <style>
   .normal {
@@ -48,13 +49,16 @@ const { href, type = "dark", size = "normal" } = Astro.props
 
   .btn {
     text-decoration: none;
-    background-color: transparent;
     padding: var(--size) calc(3 * var(--size));
     border-radius: calc(3*var(--size));
     font-size: var(--font-size);
     color: var(--btn-color, #212529);
     background-color: var(--btn-background-color, #fff);
-    transition: background-color 0.2s ease-in-out;
+    transition: background-color 0.1s ease-in-out;
+  }
+
+  .btn-icon {
+    padding: var(--size);
   }
 
 
