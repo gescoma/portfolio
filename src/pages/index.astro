@@ -4,6 +4,8 @@ import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
 import { t, changeLanguage } from "i18next";
 import Link from "../components/Link.astro";
+import Github from "../components/icons/Github.astro";
+import Linkedin from "../components/icons/Linkedin.astro";
 
 changeLanguage("en");
 ---
@@ -14,16 +16,52 @@ changeLanguage("en");
       title={t("presentation.title")}
       body={t("presentation.body")}
       size="large"
+      backgroundType="gradient"
+      backgroundColors={{primary: "var(--secondary-hex)", secondary: "var(--accent-hex)"}}
     >
-      <Link href="/docs/getting-started">Get started</Link>
-      <Link href="/docs/getting-started" type="info">Get started</Link>
-      <Link href="/docs/getting-started" type="light">Get started</Link>
+    <div class="buttons">
+      <Link href="/docs/getting-started" size="large">Get started</Link>
+      <Link href="/docs/getting-started" type="light" size="large" icon><Github/></Link>
+      <Link href="/docs/getting-started" type="light" size="large" icon><Linkedin/></Link>
+    </div>
+    </Card>
+  </section>
+  <section class="about-me" title="about-me">
+    <Card backgroundType="image" backgroundImage="/images/profile_picture.jpeg">
+      
     </Card>
   </section>
 </Layout>
 
 <style>
   .presentation {
-    grid-column: 1 / 5;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.6rem;
+    order: 2;
+  }
+
+
+
+  .about-me {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.6rem;
+    order: 1;
+    min-height: 500px;
+  }
+
+   @media (min-width: 768px) {
+    .presentation {
+      order: 1;
+    }
+    .about-me {
+      order: 2;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    gap: 1rem;
   }
 </style>
