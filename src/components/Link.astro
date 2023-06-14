@@ -4,12 +4,14 @@ export interface Props {
   type?: "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark"
   size?: "normal" | "large" | "small" | "block"
   icon?: boolean
+  target?: boolean
+  rel?: string
 }
 
-const { href, type = "dark", size = "normal", icon = false } = Astro.props
+const { href, type = "dark", size = "normal", icon = false, ...props } = Astro.props
 ---
 
-<a href={href} class={`${type} btn ${size} btn-${icon && "icon"}`}><slot/></a>
+<a href={href} class={`${type} btn ${size} btn-${icon && "icon"}`} {...props}><slot/></a>
 
 <style>
   .normal {

@@ -1,4 +1,5 @@
 ---
+import Close from "./icons/Close.astro"
 export interface Props {
   title?: string
   body?: string
@@ -12,30 +13,56 @@ export interface Props {
   clickable?: boolean
 }
 
-const { title, body, size = "medium", backgroundType = "color", backgroundColors = {primary: "var(--secondary-hex)", secondary: "var(--accent-hex)"}, backgroundImage = "https://placehold.co/600x500", clickable = false } = Astro.props
+const {
+  title,
+  body,
+  size = "medium",
+  backgroundType = "color",
+  backgroundColors = {
+    primary: "var(--secondary-hex)",
+    secondary: "var(--accent-hex)",
+  },
+  backgroundImage = "https://placehold.co/600x500",
+  clickable = false,
+} = Astro.props
 ---
 
-<article class={`card ${size} ${backgroundType === "image" && "card-image"} ${backgroundType === "color" && "card-color"} ${clickable && "card-clickable"}`}>
-  {backgroundType === "gradient" && (
-    <div class="card__gradient-background">
-      <span class="card-circle-2"  />
-      <span class="card-circle-1" />
-    </div>
-  )}
-  {title && <h2>
-    {title}
-  </h2>}
-  {body && <h3>
-    {body}
-  </h3>}
+<article
+  class={`card ${size} ${backgroundType === "image" && "card-image"} ${
+    backgroundType === "color" && "card-color"
+  } ${clickable && "card-clickable"}`}
+>
+  {
+    backgroundType === "gradient" && (
+      <div class="card__gradient-background">
+        <span class="card-circle-2" />
+        <span class="card-circle-1" />
+      </div>
+    )
+  }
+  {title && <h2>{title}</h2>}
+  {body && <h3>{body}</h3>}
   <div class="card__body">
     <slot />
   </div>
-  {clickable && <div class="card__extended">
-    onclick body
-  </div>}
+  {
+    clickable && (
+      <div class="card__extended">
+        <button class="card__extended__close">
+          <Close width="2rem" height="2rem" />
+        </button>
+        onclick body
+      </div>
+    )
+  }
 </article>
-<style define:vars={{ primaryColor: backgroundColors.primary , secondaryColor: backgroundColors.secondary, imageUrl: `url("${backgroundImage}")` }}>
+<style
+  define:vars={{
+    primaryColor: backgroundColors.primary,
+    secondaryColor: backgroundColors.secondary,
+    imageUrl: `url("${backgroundImage}")`,
+  }}
+>
   .card {
     display: flex;
     flex-direction: column;
@@ -45,8 +72,10 @@ const { title, body, size = "medium", backgroundType = "color", backgroundColors
     -webkit-backdrop-filter: blur(10px);
     height: 100%;
     border-radius: 0.6rem;
+    transition: width 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+      height 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
     overflow: hidden;
-    position: relative;
   }
   .card__gradient-background {
     z-index: -1;
@@ -76,7 +105,7 @@ const { title, body, size = "medium", backgroundType = "color", backgroundColors
   h2 {
     margin: 0;
     font-size: 1.25rem;
-    transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   }
   h3 {
     margin-top: 1.5rem;
@@ -87,7 +116,6 @@ const { title, body, size = "medium", backgroundType = "color", backgroundColors
       margin-top: 3rem;
     }
   }
-  
 
   .large h2 {
     font-size: 2.5rem;
@@ -107,6 +135,9 @@ const { title, body, size = "medium", backgroundType = "color", backgroundColors
   .card__extended {
     display: none;
   }
+  .card--active > .card__extended {
+    display: block;
+  }
 
   .card-image {
     background-image: var(--imageUrl);
@@ -119,11 +150,42 @@ const { title, body, size = "medium", backgroundType = "color", backgroundColors
   }
   .card-clickable {
     cursor: pointer;
-    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .card-clickable:hover,
-  .card-clickable:focus,
-  .card-clickable:active {
+
+  .card.card--active > .card__body,
+  .card.card--active > h2,
+  .card.card--active > h3 {
+    display: none;
+  }
+
+  .card.card--active.card-clickable {
+    cursor: default;
+  }
+
+  .card:not(.card--active).card-clickable:hover,
+  .card:not(.card--active).card-clickable:focus,
+  .card:not(.card--active).card-clickable:active {
     transform: scale(1.02);
+  }
+
+  .card__extended {
+    position: relative;
+  }
+
+  .card__extended__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .card__extended__close:hover,
+  .card__extended__close:focus,
+  .card__extended__close:active {
+    color: var(--accent-hex);
   }
 </style>
