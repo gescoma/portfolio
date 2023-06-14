@@ -179,7 +179,8 @@ changeLanguage("en")
         })
       }
       if (closeButton) {
-        closeButton.addEventListener("click", () => {
+        closeButton.addEventListener("click", (e) => {
+          e.stopPropagation()
           deleteStyles(card)
         })
       }
