@@ -7,39 +7,48 @@ export interface Props {
   backgroundImage?: string
   backgroundColors?: {
     primary: string
-    secondary: string
+    secondary?: string
   }
+  clickable?: boolean
 }
 
-const { title, body, size = "medium", backgroundType = "color", backgroundColors = {primary: "var(--secondary-hex)", secondary: "var(--accent-hex)"}, backgroundImage = "https://placehold.co/600x500" } = Astro.props
+const { title, body, size = "medium", backgroundType = "color", backgroundColors = {primary: "var(--secondary-hex)", secondary: "var(--accent-hex)"}, backgroundImage = "https://placehold.co/600x500", clickable = false } = Astro.props
 ---
 
-{backgroundType === "gradient" && (
-  <span class="card-circle-2"  />
-  <span class="card-circle-1" />
-)}
-<article class={`link-card ${size} ${backgroundType === "image" && "link-image"}`}>
+<article class={`card ${size} ${backgroundType === "image" && "card-image"} ${backgroundType === "color" && "card-color"} ${clickable && "card-clickable"}`}>
+  {backgroundType === "gradient" && (
+    <div class="card__gradient-background">
+      <span class="card-circle-2"  />
+      <span class="card-circle-1" />
+    </div>
+  )}
   {title && <h2>
     {title}
   </h2>}
   {body && <h3>
     {body}
   </h3>}
-  <div class="link-card__body">
+  <div class="card__body">
     <slot />
   </div>
-  <div class="link-card__extended">
+  {clickable && <div class="card__extended">
     onclick body
-  </div>
+  </div>}
 </article>
 <style define:vars={{ primaryColor: backgroundColors.primary , secondaryColor: backgroundColors.secondary, imageUrl: `url("${backgroundImage}")` }}>
-  .link-card {
+  .card {
     display: flex;
     flex-direction: column;
     padding: 2rem;
     background-color: rgba(218, 227, 229, 15%);
     backdrop-filter: blur(10px);
     height: 100%;
+    border-radius: 0.6rem;
+    overflow: hidden;
+    position: relative;
+  }
+  .card__gradient-background {
+    z-index: -1;
   }
   .card-circle-1 {
     position: absolute;
@@ -90,17 +99,28 @@ const { title, body, size = "medium", backgroundType = "color", backgroundColors
     font-weight: 400;
   }
 
-  .link-card__body {
+  .card__body {
     margin-top: auto;
   }
 
-  .link-card__extended {
+  .card__extended {
     display: none;
   }
 
-  .link-image {
+  .card-image {
     background-image: var(--imageUrl);
     background-size: cover;
     background-position: center;
+  }
+
+  .card-color {
+    background-color: var(--primaryColor);
+  }
+  .card-clickable {
+    cursor: pointer;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .card-clickable:hover {
+    transform: scale(1.02);
   }
 </style>
