@@ -7,13 +7,13 @@ import { LanguageSelector } from "astro-i18next/components";
   <h1 class="h1">Gerard Escòlies Martínez</h1>
   <nav>
     <ul>
-      <li>
+      <li class="hide-mobile">
         <a href="#">{t("header.home")}</a>
       </li>
-      <li>
-        <a href="#projects" class="active">{t("header.projects")}</a>
+      <li class="hide-mobile">
+        <a href="#projects">{t("header.projects")}</a>
       </li>
-      <li>
+      <li class="hide-mobile">
         <a href="#contact">{t("header.contact")}</a>
       </li>
       <li>
@@ -60,5 +60,15 @@ import { LanguageSelector } from "astro-i18next/components";
   a:hover {
     background-color: #f0f0f0;
     border-radius: 0.5rem;
+  }
+
+  .hide-mobile {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .hide-mobile {
+      display: block;
+    }
   }
 </style>
