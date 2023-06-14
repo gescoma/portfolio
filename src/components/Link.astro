@@ -15,16 +15,22 @@ const { href, type = "dark", size = "normal", icon = false } = Astro.props
   .normal {
     --size: 0.625rem;
     --font-size: 0.875rem;
+    --font-weight: 500;
+    --width: auto;
   }
 
   .small {
     --size: 0.5rem;
     --font-size: 0.75rem;
+    --font-weight: 400;
+    --width: auto;
   }
 
   .large {
     --size: 0.75rem;
     --font-size: 1rem;
+    --font-weight: 500;
+    --width: 100%;
   }
 
   .dark {
@@ -47,14 +53,23 @@ const { href, type = "dark", size = "normal", icon = false } = Astro.props
     --btn-background-color: #f8f9fa;
   }
 
+  @media (min-width: 768px) {
+    .large {
+      --width: auto;
+    }
+  }
+
   .btn {
     text-decoration: none;
     padding: var(--size) calc(3 * var(--size));
     border-radius: calc(3*var(--size));
     font-size: var(--font-size);
+    font-weight: var(--font-weight);
     color: var(--btn-color, #212529);
     background-color: var(--btn-background-color, #fff);
     transition: background-color 0.1s ease-in-out;
+    width: var(--width);
+    text-align: center;
   }
 
   .btn-icon {
