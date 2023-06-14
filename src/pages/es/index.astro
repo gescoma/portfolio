@@ -11,57 +11,179 @@ changeLanguage("es");
 ---
 
 <Layout title="Welcome to Astro.">
-  <section class="presentation" title="presentation">
-    <Card
-      title={t("presentation.title")}
-      body={t("presentation.body")}
-      size="large"
-      backgroundType="gradient"
-      backgroundColors={{primary: "var(--secondary-hex)", secondary: "var(--accent-hex)"}}
-    >
-    <div class="buttons">
-      <Link href="/docs/getting-started" size="large">Get started</Link>
-      <Link href="/docs/getting-started" type="light" size="large" icon><Github/></Link>
-      <Link href="/docs/getting-started" type="light" size="large" icon><Linkedin/></Link>
+  <section class="presentation" title="presentation" id="home">
+    <div class="hero">
+      <Card
+        title={t("presentation.title")}
+        body={t("presentation.body")}
+        size="large"
+        backgroundType="gradient"
+        backgroundColors={{
+          primary: "var(--secondary-hex)",
+          secondary: "var(--accent-hex)",
+        }}
+      >
+        <div class="buttons">
+          <Link href="/docs/getting-started" size="large">Get started</Link>
+          <Link
+            href="https://github.com/gescoma"
+            target="_blank"
+            rel=""
+            type="light"
+            size="large"
+            icon
+          >
+            <Github />
+          </Link>
+          <Link
+            href="https://www.linkedin.com/in/gerard-escolies-martinez"
+            target="_blank"
+            rel="noopener nofollow"
+            aria-label="My linkedin user"
+            type="light"
+            size="large"
+            icon
+          >
+            <Linkedin />
+          </Link>
+        </div>
+      </Card>
     </div>
-    </Card>
+    <div class="about-me">
+      <Card
+        backgroundType="image"
+        backgroundImage="/images/profile_picture.jpeg"
+        clickable
+      />
+    </div>
   </section>
-  <section class="about-me" title="about-me">
-    <Card backgroundType="image" backgroundImage="/images/profile_picture.jpeg">
-      
+  <section class="projects" title="Projects" id="projects">
+    <Card
+      title="La Violeta"
+      body="La Violeta is a project that I made for a friend. It is a website for a small business that sells flowers. It is made with React and Next.js. It is hosted in Vercel."
+      backgroundType="color"
+      backgroundColors={{ primary: "blue" }}
+      clickable
+    >
+      Project 1
     </Card>
+    <Card>Hola</Card>
+    <Card>Hola</Card>
+    <Card>Hola</Card>
+    <Card>Hola</Card>
+    <Card>Hola</Card>
+    <Card>Hola</Card>
+    <Card>Hola</Card>
+    <Card>Hola</Card>
+    <Card>Hola</Card>
   </section>
 </Layout>
 
 <style>
-  .presentation {
-    position: relative;
-    overflow: hidden;
-    border-radius: 0.6rem;
+  .hero {
     order: 2;
   }
-
-
-
   .about-me {
-    position: relative;
-    overflow: hidden;
-    border-radius: 0.6rem;
     order: 1;
     min-height: 500px;
   }
-
-   @media (min-width: 768px) {
-    .presentation {
+  .presentation {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .projects {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  @media (min-width: 768px) {
+    .hero {
       order: 1;
     }
     .about-me {
       order: 2;
     }
-  }
-
-  .buttons {
-    display: flex;
-    gap: 1rem;
+    .presentation {
+      grid-template-columns: minmax(420px, 700px) minmax(200px, auto);
+      gap: 2rem;
+    }
+    .projects {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-top: 2rem;
+    }
   }
 </style>
+
+<script>
+  const main = document.querySelector("main")
+  const mainSize = main?.getBoundingClientRect()
+  const background = document.querySelector<HTMLElement>(".dialog-background")
+  const cards = document.querySelectorAll<HTMLElement>(".card-clickable")
+
+  function addStyles(element: HTMLElement) {
+    element.classList.toggle("card--active", true)
+    element.style.zIndex = "100"
+    element.style.background = "white"
+    element.style.position = "fixed"
+    if (mainSize) {
+      element.style.top = mainSize.top + "px"
+      element.style.left = mainSize.left + "px"
+      element.style.width = mainSize.width + "px"
+      element.style.bottom = mainSize.top + "px"
+      element.style.height = "auto"
+    }
+    if (background) {
+      background.style.display = "block"
+      background.style.opacity = "1"
+    }
+  }
+
+  function deleteStyles(element: HTMLElement) {
+    element.classList.toggle("card--active", false)
+    element.style.removeProperty("z-index")
+    element.style.removeProperty("background")
+    element.style.removeProperty("position")
+    element.style.removeProperty("top")
+    element.style.removeProperty("left")
+    element.style.removeProperty("width")
+    element.style.removeProperty("bottom")
+    element.style.removeProperty("height")
+    if (background) {
+      background.style.removeProperty("opacity")
+      setTimeout(() => {
+        background.style.removeProperty("display")
+      }, 200)
+    }
+  }
+
+  if (cards.length > 0) {
+    cards.forEach((card: HTMLElement) => {
+      const closeButton = card.querySelector<HTMLElement>(
+        ".card__extended__close"
+      )
+      card.addEventListener("click", (e) => {
+        if (e.currentTarget !== card) return
+        addStyles(card)
+      })
+      if (background) {
+        background.addEventListener("click", () => {
+          deleteStyles(card)
+        })
+      }
+      if (closeButton) {
+        closeButton.addEventListener("click", (e) => {
+          e.stopPropagation()
+          deleteStyles(card)
+        })
+      }
+    })
+  }
+</script>
