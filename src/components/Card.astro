@@ -13,6 +13,10 @@ export interface Props {
   clickable?: boolean
 }
 
+interface CSSStyles {
+  [key: string]: string
+}
+
 const {
   title,
   body,
@@ -25,18 +29,47 @@ const {
   backgroundImage = "https://placehold.co/600x500",
   clickable = false,
 } = Astro.props
+
+const styles: CSSStyles = {
+  "--primaryColor": backgroundColors.primary,
+  "--secondaryColor": backgroundColors.secondary || backgroundColors.primary,
+}
+
+const getCardStyles = () => {
+  const styles: CSSStyles = {}
+  if (backgroundType === "image") {
+    styles["--backgroundImage"] = `url("${backgroundImage}")`
+  }
+  if (backgroundType === "color") {
+    styles["--primaryColor"] = backgroundColors.primary
+  }
+  return styles
+}
 ---
 
 <article
   class={`card ${size} ${backgroundType === "image" && "card-image"} ${
     backgroundType === "color" && "card-color"
   } ${clickable && "card-clickable"}`}
+  style={getCardStyles()}
 >
   {
     backgroundType === "gradient" && (
       <div class="card__gradient-background">
-        <span class="card-circle-2" />
-        <span class="card-circle-1" />
+        <span
+          class="card-circle card-circle-2"
+          style={{
+            background: backgroundColors.secondary,
+            boxShadow: `0px 0px 200px 200px ${backgroundColors.secondary}`,
+          }}
+        />
+        <span
+          class="card-circle card-circle-1"
+          style={{
+            background: backgroundColors.primary,
+            boxShadow: `0px 0px 200px 200px ${backgroundColors.primary}`,
+          }}
+        />
       </div>
     )
   }
@@ -56,13 +89,7 @@ const {
     )
   }
 </article>
-<style
-  define:vars={{
-    primaryColor: backgroundColors.primary,
-    secondaryColor: backgroundColors.secondary,
-    imageUrl: `url("${backgroundImage}")`,
-  }}
->
+<style>
   .card {
     display: flex;
     flex-direction: column;
@@ -76,31 +103,28 @@ const {
       height 0.2s cubic-bezier(0.22, 1, 0.36, 1),
       background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
     overflow: hidden;
+    position: relative;
   }
   .card__gradient-background {
     z-index: -1;
   }
-  .card-circle-1 {
+
+  .card-circle {
     position: absolute;
+    border-radius: 100%;
+    opacity: 0.5;
+  }
+  .card-circle-1 {
     top: -327px;
     right: 0;
     width: 380px;
     height: 380px;
-    border-radius: 100%;
-    background: var(--primaryColor);
-    box-shadow: 0px 0px 200px 200px var(--primaryColor);
-    opacity: 0.5;
   }
   .card-circle-2 {
-    position: absolute;
     bottom: -147px;
     right: -18px;
     width: 427px;
     height: 343px;
-    border-radius: 100%;
-    background: var(--secondaryColor);
-    box-shadow: 0px 0px 200px 200px var(--secondaryColor);
-    opacity: 0.5;
   }
   h2 {
     margin: 0;
@@ -140,7 +164,7 @@ const {
   }
 
   .card-image {
-    background-image: var(--imageUrl);
+    background-image: var(--backgroundImage);
     background-size: cover;
     background-position: center;
   }
