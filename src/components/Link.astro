@@ -1,17 +1,36 @@
 ---
 export interface Props {
   href: string
-  type?: "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark"
+  type?:
+    | "primary"
+    | "secondary"
+    | "success"
+    | "danger"
+    | "warning"
+    | "info"
+    | "light"
+    | "dark"
   size?: "normal" | "large" | "small" | "block"
   icon?: boolean
-  target?: boolean
+  target?: string
   rel?: string
 }
 
-const { href, type = "dark", size = "normal", icon = false, ...props } = Astro.props
+const {
+  href,
+  type = "dark",
+  size = "normal",
+  icon = false,
+
+  ...props
+} = Astro.props
 ---
 
-<a href={href} class={`${type} btn ${size} btn-${icon && "icon"}`} {...props}><slot/></a>
+<a
+  href={href}
+  class={`${type} btn ${size} ${icon ? "btn-icon" : ""}`}
+  {...props}><slot /></a
+>
 
 <style>
   .normal {
@@ -62,9 +81,12 @@ const { href, type = "dark", size = "normal", icon = false, ...props } = Astro.p
   }
 
   .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
     padding: var(--size) calc(3 * var(--size));
-    border-radius: calc(3*var(--size));
+    border-radius: calc(3 * var(--size));
     font-size: var(--font-size);
     font-weight: var(--font-weight);
     color: var(--btn-color, #212529);
@@ -75,9 +97,6 @@ const { href, type = "dark", size = "normal", icon = false, ...props } = Astro.p
   }
 
   .btn-icon {
-    padding: var(--size);
+    padding: calc(var(--size) - 0.2rem);
   }
-
-
-
 </style>
