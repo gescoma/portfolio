@@ -1,4 +1,5 @@
 {
+  "title": "I'm Gerard, a web developer, I convert ideas into digital realities",
   "header": {
     "home": "Home",
     "projects": "Projects",
@@ -6,6 +7,17 @@
   },
   "presentation": {
     "title": "I'm Gerard, a web developer, I convert ideas into digital realities",
-    "body": "I care a lot about using design for positive impact. and enjoy creating user-centric, delightful, and human experiences."
+    "body": "I care a lot about using design for positive impact. and enjoy creating user-centric, delightful, and human experiences.",
+    "contact-me": "Contact me"
+  },
+  "about-me": {
+    "image-alt": "Gerard's photo",
+    "title": "About me",
+    "body": "<0>Hello! My name is Gerard Escòlies Martínez and since I was 18 years old, I discovered my passion for software development. Although my path initially pointed towards aeronautical engineering, it was in programming where I found my true vocation.</0><1>From an early age, I was considered the \"piratilla\" of the family. Whenever there was a problem with a computer system, everyone assumed I had something to do with it. I guess computing is an innate passion for me.</1><2>I'm a restless person. When I'm not working, I'm studying and exploring the latest developments in programming. One of my biggest drives is to take on challenges that exceed my current skills. Although it can be difficult, the satisfaction in completing them is hugely rewarding and you always learn new things. In addition, I love collaborating with my peers and providing help when someone is stuck on a task.</2><3>In addition to my skills in web development and application programming, I also have experience in image and video editing. I enjoy using both pixels and vectors to create stunning and visually appealing designs.</3><4>In short, I am a passionate developer with a great ability to work in a team, generate creative ideas and take on leadership roles when needed. My in-depth knowledge of computer systems, development tools and my thirst for constant learning make me a valuable resource for any project.</4>",
+    "habilities": {
+      "title": "Habilities",
+      "body": "I have experience in a wide range of technologies, from frontend to backend, from databases to cloud computing. I am a very versatile developer and I am always willing to learn new technologies.",
+      "subtitle": "I have worked with:"
+    }
   }
 }
