@@ -1,0 +1,74 @@
+{
+  "technologies": [
+  {
+    "name": "HTML5",
+    "image": "/images/icons/logo-html5.svg",
+    "color": "#e34f26"
+  },
+  {
+    "name": "CSS",
+    "image": "/images/icons/logo-css3.svg",
+    "color": "#264de4"
+  },
+  {
+    "name": "Tailwind CSS",
+    "image": "/images/icons/logo-tailwindcss.svg",
+    "color": "#06b6d4"
+  },
+  {
+    "name": "JavaScript",
+    "image": "/images/icons/logo-javascript.svg",
+    "color": "#f7df1e"
+  },
+  {
+    "name": "React",
+    "image": "/images/icons/logo-react.svg",
+    "color": "#61dafb"
+  },
+  {
+    "name": "Angular",
+    "image": "/images/icons/logo-angular.svg",
+    "color": "#dd0031"
+  },
+  {
+    "name": "Astro",
+    "image": "/images/icons/logo-astro.svg",
+    "color": "#f9826c"
+  },
+  {
+    "name": "Ruby on Rails",
+    "image": "/images/icons/logo-ruby-on-rails.svg",
+    "color": "#cc0000"
+  },
+  {
+    "name": "PHP",
+    "color": "#777bb4"
+  },
+  {
+    "name": "Laravel",
+    "image": "/images/icons/logo-laravel.svg",
+    "color": "#ff2d20"
+  },
+  {
+    "name": "Symfony",
+    "image": "/images/icons/logo-symfony.svg",
+    "color": "#000000"
+  },
+  {
+    "name": "Swift",
+    "image": "/images/icons/logo-swift.svg",
+    "color": "#ffac45"
+  },
+  {
+    "name": "Java",
+    "image": "/images/icons/logo-java.svg",
+    "color": "#007396"
+  },
+  {
+    "name": "Python",
+    "image": "/images/icons/logo-python.svg",
+    "color": "#3776ab"
+  }
+]
+
+}
