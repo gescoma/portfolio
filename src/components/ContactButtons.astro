@@ -1,0 +1,43 @@
+---
+import { t } from "i18next"
+import Link from "./Link.astro"
+import Github from "./icons/Github.astro"
+import Linkedin from "./icons/Linkedin.astro"
+
+const iconSize = "calc(var(--font-size) + 0.6rem)"
+---
+
+<div class="buttons">
+  <Link href="/docs/getting-started" size="large">
+    {t("presentation.contact-me")}
+  </Link>
+  <Link
+    href="https://github.com/gescoma"
+    target="_blank"
+    rel=""
+    type="light"
+    size="large"
+    icon
+  >
+    <Github width={iconSize} height="auto" />
+  </Link>
+  <Link
+    href="https://www.linkedin.com/in/gerard-escolies-martinez"
+    target="_blank"
+    rel="noopener nofollow"
+    aria-label="My linkedin user"
+    type="light"
+    size="large"
+    icon
+  >
+    <Linkedin width={iconSize} height="auto" />
+  </Link>
+</div>
+
+<style>
+  .buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+</style>
