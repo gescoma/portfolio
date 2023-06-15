@@ -1,16 +1,18 @@
 ---
-import { changeLanguage } from "i18next";
-import Layout from "../../layouts/Layout.astro";
-import Card from "../../components/Card.astro";
-import { t, changeLanguage } from "i18next";
-import Link from "../../components/Link.astro";
-import Github from "../../components/icons/Github.astro";
-import Linkedin from "../../components/icons/Linkedin.astro";
+import Layout from "../../layouts/Layout.astro"
+import Card from "../../components/Card.astro"
+import { t, changeLanguage } from "i18next"
+import { Trans } from "astro-i18next/components"
+import Techs from "../../content/techs.json"
+import Tag from "../../components/Tag.astro"
+import ContactButtons from "../../components/ContactButtons.astro"
 
-changeLanguage("ca");
+changeLanguage("ca")
+
+const projects = await Astro.glob("../../content/projects/ca/*.md")
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title={t("title")}>
   <section class="presentation" title="presentation" id="home">
     <div class="hero">
       <Card
@@ -23,59 +25,82 @@ changeLanguage("ca");
           secondary: "var(--accent-hex)",
         }}
       >
-        <div class="buttons">
-          <Link href="/docs/getting-started" size="large">Get started</Link>
-          <Link
-            href="https://github.com/gescoma"
-            target="_blank"
-            rel=""
-            type="light"
-            size="large"
-            icon
-          >
-            <Github />
-          </Link>
-          <Link
-            href="https://www.linkedin.com/in/gerard-escolies-martinez"
-            target="_blank"
-            rel="noopener nofollow"
-            aria-label="My linkedin user"
-            type="light"
-            size="large"
-            icon
-          >
-            <Linkedin />
-          </Link>
-        </div>
+        <ContactButtons />
       </Card>
     </div>
     <div class="about-me">
       <Card
         backgroundType="image"
         backgroundImage="/images/profile_picture.jpeg"
+        size="large"
         clickable
-      />
+      >
+        <div slot="dialog-content">
+          <div class="dialog__header">
+            <img
+              src="/images/profile_picture_1.jpeg"
+              alt={t("about-me.image-alt")}
+            />
+            <h2>Gerard Escòlies Martínez</h2>
+          </div>
+          <h3>{t("about-me.title")}</h3>
+          <Trans i18nKey="about-me.body">
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+          </Trans>
+          <h3>{t("about-me.habilities.title")}</h3>
+          <p>{t("about-me.habilities.body")}</p>
+          <h3>{t("about-me.habilities.subtitle")}</h3>
+          <div class="about-me__habilities__tabs">
+            {
+              Techs.technologies.map((tech) => (
+                <Tag
+                  title={tech.name}
+                  color={tech.color}
+                  icon={tech.image ? true : false}
+                  iconURL={tech.image}
+                />
+              ))
+            }
+          </div>
+        </div>
+      </Card>
     </div>
   </section>
   <section class="projects" title="Projects" id="projects">
+    {
+      projects &&
+        projects.map(({ Content, ...project }) => (
+          <Card
+            title={project.frontmatter.title}
+            body={project.frontmatter.brief}
+            backgroundType="color"
+            backgroundColors={{ primary: project.frontmatter.color }}
+            clickable
+          >
+            <div slot="dialog-content">
+              <Content />
+            </div>
+          </Card>
+        ))
+    }
+  </section>
+  <section title="Contact-me" id="contact" class="contact-me">
     <Card
-      title="La Violeta"
-      body="La Violeta is a project that I made for a friend. It is a website for a small business that sells flowers. It is made with React and Next.js. It is hosted in Vercel."
-      backgroundType="color"
-      backgroundColors={{ primary: "blue" }}
-      clickable
+      title={t("contact.title")}
+      body={t("contact.body")}
+      size="large"
+      backgroundType="gradient"
+      backgroundColors={{
+        primary: "var(--secondary-hex)",
+        secondary: "var(--accent-hex)",
+      }}
     >
-      Project 1
+      <ContactButtons />
     </Card>
-    <Card>Hola</Card>
-    <Card>Hola</Card>
-    <Card>Hola</Card>
-    <Card>Hola</Card>
-    <Card>Hola</Card>
-    <Card>Hola</Card>
-    <Card>Hola</Card>
-    <Card>Hola</Card>
-    <Card>Hola</Card>
   </section>
 </Layout>
 
@@ -85,23 +110,48 @@ changeLanguage("ca");
   }
   .about-me {
     order: 1;
-    min-height: 500px;
+    min-height: 300px;
   }
   .presentation {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
-  }
-  .buttons {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
+    margin: 0 0 1rem 0;
   }
   .projects {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
-    margin-top: 1rem;
+    margin: 1rem 0;
+  }
+
+  .dialog__header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .dialog__header h2 {
+    margin: 0;
+  }
+  .dialog__header img {
+    margin: 0;
+    max-width: 100px;
+    width: 100%;
+    max-height: 100px;
+    height: 100%;
+    border-radius: 100%;
+    object-fit: cover;
+  }
+
+  .about-me__habilities__tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .contact-me {
+    margin: 1rem 0;
   }
   @media (min-width: 768px) {
     .hero {
@@ -109,44 +159,62 @@ changeLanguage("ca");
     }
     .about-me {
       order: 2;
+      min-height: 500px;
     }
     .presentation {
       grid-template-columns: minmax(420px, 700px) minmax(200px, auto);
       gap: 2rem;
+      margin: 0 0 1rem 0;
     }
     .projects {
       grid-template-columns: repeat(2, 1fr);
       gap: 2rem;
-      margin-top: 2rem;
+      margin: 2rem 0;
+    }
+
+    .contact-me {
+      margin: 2rem 0;
     }
   }
 </style>
 
 <script>
+  const body = document.querySelector("body")
   const main = document.querySelector("main")
-  const mainSize = main?.getBoundingClientRect()
+  let dialogOpened = false
   const background = document.querySelector<HTMLElement>(".dialog-background")
   const cards = document.querySelectorAll<HTMLElement>(".card-clickable")
 
   function addStyles(element: HTMLElement) {
+    dialogOpened = true
+    if (body) {
+      body.style.overflow = "hidden"
+    }
+    const mainSize = main?.getBoundingClientRect()
     element.classList.toggle("card--active", true)
     element.style.zIndex = "100"
     element.style.background = "white"
     element.style.position = "fixed"
     if (mainSize) {
-      element.style.top = mainSize.top + "px"
+      element.style.top = "54px"
       element.style.left = mainSize.left + "px"
       element.style.width = mainSize.width + "px"
-      element.style.bottom = mainSize.top + "px"
+      element.style.bottom = "54px"
       element.style.height = "auto"
     }
     if (background) {
       background.style.display = "block"
-      background.style.opacity = "1"
+      setTimeout(() => {
+        background.style.opacity = "1"
+      }, 10)
     }
   }
 
   function deleteStyles(element: HTMLElement) {
+    if (body) {
+      body.style.removeProperty("overflow")
+    }
+    dialogOpened = false
     element.classList.toggle("card--active", false)
     element.style.removeProperty("z-index")
     element.style.removeProperty("background")
@@ -184,6 +252,13 @@ changeLanguage("ca");
           deleteStyles(card)
         })
       }
+    })
+
+    window.addEventListener("resize", () => {
+      if (!dialogOpened) return
+      const card = document.querySelector<HTMLElement>(".card--active")
+      if (!card) return
+      deleteStyles(card)
     })
   }
 </script>
