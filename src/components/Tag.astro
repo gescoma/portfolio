@@ -1,0 +1,53 @@
+---
+import { getContrastColor } from "../scripts/color"
+export interface Props {
+  title: string
+  size?: "normal" | "large" | "small" | "block"
+  icon?: boolean
+  iconURL?: string
+  color?: string
+}
+
+const {
+  title,
+  size = "normal",
+  icon = false,
+  iconURL = "",
+  color = "var(--color-primary)",
+} = Astro.props
+
+const colorFondo = color
+const colorTexto = getContrastColor(colorFondo)
+---
+
+<span
+  style={{
+    backgroundColor: color,
+    color: colorTexto,
+  }}
+  >{title}
+  {
+    icon && (
+    // insert svg from imageURL with the same fill color that the text
+      <img
+        src={iconURL}
+        style={{
+          width: "1.2rem",
+          height: "1.2rem",
+          fill: colorTexto,
+          filter: `invert(${colorTexto === "#fff" ? "1" : "0"}`,
+        }}
+      />
+    )
+  }</span
+>
+
+<style>
+  span {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem
+  }ssss
+</style>
