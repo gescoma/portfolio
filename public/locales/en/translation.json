@@ -19,5 +19,9 @@
       "body": "I have experience in a wide range of technologies, from frontend to backend, from databases to cloud computing. I am a very versatile developer and I am always willing to learn new technologies.",
       "subtitle": "I have worked with:"
     }
+  },
+  "contact": {
+    "title": "Contact with me",
+    "body": "If you want to contact me, you can do it through the following form or through my email address <a href='mailto:gerard@escoliesmartinez.com'>gerard@escoliesmartinez.com</a> or via linkedin"
   }
 }

@@ -19,5 +19,9 @@
       "body": "Tinc experiència en una àmplia gamma de tecnologies, des del desenvolupament frontend fins al backend, des de bases de dades fins a la computació en el núvol. Sóc un desenvolupador molt versàtil i sempre estic disposat a aprendre noves tecnologies.",
       "subtitle": "He treballat amb:"
     }
+  },
+  "contact": {
+    "title": "Contacta amb mi",
+    "body": "Si vols contactar amb mi, pots fer-ho enviant-me un correu electrònic a <a href='mailto:gerard@escoliesmartinez.com'>gerard@escoliesmartinez.com</a> o a través de liknedin."
   }
 }
