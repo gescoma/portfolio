@@ -1,8 +1,11 @@
 ---
+import type { DefaultTFuncReturn } from "i18next"
+import { getContrastColor } from "../scripts/color"
+
 import Close from "./icons/Close.astro"
 export interface Props {
-  title?: string
-  body?: string
+  title?: string | DefaultTFuncReturn
+  body?: string | DefaultTFuncReturn
   size?: "small" | "medium" | "large"
   backgroundType?: "color" | "gradient" | "image"
   backgroundImage?: string
@@ -41,6 +44,7 @@ const getCardStyles = () => {
     styles["--backgroundImage"] = `url("${backgroundImage}")`
   }
   if (backgroundType === "color") {
+    styles["--font-color"] = getContrastColor(backgroundColors.primary)
     styles["--primaryColor"] = backgroundColors.primary
   }
   return styles
@@ -73,8 +77,8 @@ const getCardStyles = () => {
       </div>
     )
   }
-  {title && <h2>{title}</h2>}
-  {body && <h3>{body}</h3>}
+  {title && <h2 set:html={title} />}
+  {body && <h3 set:html={body} />}
   <div class="card__body">
     <slot />
   </div>
@@ -82,9 +86,9 @@ const getCardStyles = () => {
     clickable && (
       <div class="card__extended">
         <button class="card__extended__close">
-          <Close width="2rem" height="2rem" />
+          <Close width="100%" height="100%" />
         </button>
-        onclick body
+        <slot name="dialog-content" />
       </div>
     )
   }
@@ -99,14 +103,32 @@ const getCardStyles = () => {
     -webkit-backdrop-filter: blur(10px);
     height: 100%;
     border-radius: 0.6rem;
-    transition: width 0.2s cubic-bezier(0.22, 1, 0.36, 1),
-      height 0.2s cubic-bezier(0.22, 1, 0.36, 1),
-      background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
     overflow: hidden;
     position: relative;
+    color: var(--font-color);
+  }
+
+  .card.card--active {
+    padding: 2rem;
   }
   .card__gradient-background {
     z-index: -1;
+  }
+
+  .card.medium {
+    padding: 1.5rem;
+    min-height: 300px;
+  }
+  .card.medium h2 {
+    font-size: 1.4rem;
+    font-weight: 400;
+  }
+
+  .card.medium h3 {
+    font-size: 0.9rem;
+    font-style: normal;
+    font-weight: 400;
+    margin: 0.5rem 0;
   }
 
   .card-circle {
@@ -126,30 +148,23 @@ const getCardStyles = () => {
     width: 427px;
     height: 343px;
   }
-  h2 {
+  .card.large h2 {
     margin: 0;
     font-size: 1.25rem;
-    transition: color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  h3 {
-    margin-top: 1.5rem;
-  }
-
-  @media (min-width: 992px) {
-    h3 {
-      margin-top: 3rem;
-    }
-  }
-
-  .large h2 {
     font-size: 2.5rem;
     font-weight: 600;
   }
-
-  .large h3 {
+  .card.large h3 {
+    margin: 1.5rem 0 3rem 0;
     font-size: 1rem;
     font-style: normal;
     font-weight: 400;
+  }
+
+  @media (min-width: 992px) {
+    .card.large h3 {
+      margin: 3rem 0 5rem 0;
+    }
   }
 
   .card__body {
@@ -158,6 +173,7 @@ const getCardStyles = () => {
 
   .card__extended {
     display: none;
+    color: var(--black);
   }
   .card--active > .card__extended {
     display: block;
@@ -185,6 +201,7 @@ const getCardStyles = () => {
 
   .card.card--active.card-clickable {
     cursor: default;
+    overflow-y: auto;
   }
 
   .card:not(.card--active).card-clickable:hover,
@@ -199,17 +216,34 @@ const getCardStyles = () => {
 
   .card__extended__close {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: -0.5rem;
+    right: -0.5rem;
     border: none;
+    padding: 0;
     background: none;
     cursor: pointer;
+    color: #95a5a6;
     transition: color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+    width: 2rem;
+    height: 2rem;
   }
 
   .card__extended__close:hover,
   .card__extended__close:focus,
   .card__extended__close:active {
-    color: var(--accent-hex);
+    color: black;
+  }
+
+  @media (min-width: 992px) {
+    .card__extended__close {
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .card.card--active {
+      padding: 3rem;
+    }
   }
 </style>
