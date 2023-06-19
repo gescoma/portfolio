@@ -6,6 +6,7 @@ import { Trans } from "astro-i18next/components"
 import Techs from "../../content/techs.json"
 import Tag from "../../components/Tag.astro"
 import ContactButtons from "../../components/ContactButtons.astro"
+import Image from "../../components/Image.astro"
 
 changeLanguage("es")
 
@@ -19,7 +20,7 @@ const projects = await Astro.glob("../../content/projects/es/*.md")
         title={t("presentation.title")}
         body={t("presentation.body")}
         size="large"
-        backgroundType="gradient"
+        backgroundType="organic-gradient"
         backgroundColors={{
           primary: "var(--secondary-hex)",
           secondary: "var(--accent-hex)",
@@ -37,34 +38,41 @@ const projects = await Astro.glob("../../content/projects/es/*.md")
       >
         <div slot="dialog-content">
           <div class="dialog__header">
-            <img
+            <Image
               src="/images/profile_picture_1.jpeg"
               alt={t("about-me.image-alt")}
+              size="medium"
+              rounded="small"
+              square
+              lazy
+              blur
             />
             <h2>Gerard Escòlies Martínez</h2>
           </div>
-          <h3>{t("about-me.title")}</h3>
-          <Trans i18nKey="about-me.body">
-            <p></p>
-            <p></p>
-            <p></p>
-            <p></p>
-            <p></p>
-          </Trans>
-          <h3>{t("about-me.habilities.title")}</h3>
-          <p>{t("about-me.habilities.body")}</p>
-          <h3>{t("about-me.habilities.subtitle")}</h3>
-          <div class="about-me__habilities__tabs">
-            {
-              Techs.technologies.map((tech) => (
-                <Tag
-                  title={tech.name}
-                  color={tech.color}
-                  icon={tech.image ? true : false}
-                  iconURL={tech.image}
-                />
-              ))
-            }
+          <div class="dialog__content">
+            <h2>{t("about-me.title")}</h2>
+            <Trans i18nKey="about-me.body">
+              <p></p>
+              <p></p>
+              <p></p>
+              <p></p>
+              <p></p>
+            </Trans>
+            <h2>{t("about-me.habilities.title")}</h2>
+            <p>{t("about-me.habilities.body")}</p>
+            <h2>{t("about-me.habilities.subtitle")}</h2>
+            <div class="about-me__habilities__tabs">
+              {
+                Techs.technologies.map((tech) => (
+                  <Tag
+                    title={tech.name}
+                    color={tech.color}
+                    icon={tech.image ? true : false}
+                    iconURL={tech.image}
+                  />
+                ))
+              }
+            </div>
           </div>
         </div>
       </Card>
@@ -77,12 +85,15 @@ const projects = await Astro.glob("../../content/projects/es/*.md")
           <Card
             title={project.frontmatter.title}
             body={project.frontmatter.brief}
-            backgroundType="color"
+            backgroundType="image-color"
             backgroundColors={{ primary: project.frontmatter.color }}
+            backgroundImage={project.frontmatter.image}
             clickable
           >
             <div slot="dialog-content">
-              <Content />
+              <div class="dialog__content">
+                <Content />
+              </div>
             </div>
           </Card>
         ))
@@ -93,7 +104,7 @@ const projects = await Astro.glob("../../content/projects/es/*.md")
       title={t("contact.title")}
       body={t("contact.body")}
       size="large"
-      backgroundType="gradient"
+      backgroundType="organic-gradient"
       backgroundColors={{
         primary: "var(--secondary-hex)",
         secondary: "var(--accent-hex)",
@@ -134,14 +145,19 @@ const projects = await Astro.glob("../../content/projects/es/*.md")
   .dialog__header h2 {
     margin: 0;
   }
-  .dialog__header img {
+  .dialog__header img.profile {
     margin: 0;
     max-width: 100px;
     width: 100%;
     max-height: 100px;
     height: 100%;
-    border-radius: 100%;
+    border-radius: 0.75rem;
     object-fit: cover;
+  }
+
+  .dialog__content h3,
+  .dialog__content h2 {
+    margin: 2rem 0;
   }
 
   .about-me__habilities__tabs {
@@ -162,7 +178,7 @@ const projects = await Astro.glob("../../content/projects/es/*.md")
       min-height: 500px;
     }
     .presentation {
-      grid-template-columns: minmax(420px, 700px) minmax(200px, auto);
+      grid-template-columns: minmax(420px, 700px) minmax(200px, 272px);
       gap: 2rem;
       margin: 0 0 1rem 0;
     }
@@ -177,88 +193,9 @@ const projects = await Astro.glob("../../content/projects/es/*.md")
     }
   }
 </style>
-
-<script>
-  const body = document.querySelector("body")
-  const main = document.querySelector("main")
-  let dialogOpened = false
-  const background = document.querySelector<HTMLElement>(".dialog-background")
-  const cards = document.querySelectorAll<HTMLElement>(".card-clickable")
-
-  function addStyles(element: HTMLElement) {
-    dialogOpened = true
-    if (body) {
-      body.style.overflow = "hidden"
-    }
-    const mainSize = main?.getBoundingClientRect()
-    element.classList.toggle("card--active", true)
-    element.style.zIndex = "100"
-    element.style.background = "white"
-    element.style.position = "fixed"
-    if (mainSize) {
-      element.style.top = "54px"
-      element.style.left = mainSize.left + "px"
-      element.style.width = mainSize.width + "px"
-      element.style.bottom = "54px"
-      element.style.height = "auto"
-    }
-    if (background) {
-      background.style.display = "block"
-      setTimeout(() => {
-        background.style.opacity = "1"
-      }, 10)
-    }
+<style is:global>
+  .dialog__content h3,
+  .dialog__content h2 {
+    margin: 2rem 0;
   }
-
-  function deleteStyles(element: HTMLElement) {
-    if (body) {
-      body.style.removeProperty("overflow")
-    }
-    dialogOpened = false
-    element.classList.toggle("card--active", false)
-    element.style.removeProperty("z-index")
-    element.style.removeProperty("background")
-    element.style.removeProperty("position")
-    element.style.removeProperty("top")
-    element.style.removeProperty("left")
-    element.style.removeProperty("width")
-    element.style.removeProperty("bottom")
-    element.style.removeProperty("height")
-    if (background) {
-      background.style.removeProperty("opacity")
-      setTimeout(() => {
-        background.style.removeProperty("display")
-      }, 200)
-    }
-  }
-
-  if (cards.length > 0) {
-    cards.forEach((card: HTMLElement) => {
-      const closeButton = card.querySelector<HTMLElement>(
-        ".card__extended__close"
-      )
-      card.addEventListener("click", (e) => {
-        if (e.currentTarget !== card) return
-        addStyles(card)
-      })
-      if (background) {
-        background.addEventListener("click", () => {
-          deleteStyles(card)
-        })
-      }
-      if (closeButton) {
-        closeButton.addEventListener("click", (e) => {
-          e.stopPropagation()
-          deleteStyles(card)
-        })
-      }
-    })
-
-    window.addEventListener("resize", () => {
-      if (!dialogOpened) return
-      const card = document.querySelector<HTMLElement>(".card--active")
-      if (!card) return
-      deleteStyles(card)
-    })
-  }
-</script>
+</style>
