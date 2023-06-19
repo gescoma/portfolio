@@ -3,7 +3,7 @@ title: Aledo Distribuciones
 brief: Un sitio web para un negocio local.
 date: 2019-01-01
 type: proyecto
-image: aledo.png
+image: images/projects/aledo-web.png
 color: "#708573"
 tags:
   - diseño

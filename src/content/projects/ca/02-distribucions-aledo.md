@@ -3,7 +3,7 @@ title: Aledo Distribucions
 brief: Un lloc web per a un negoci local.
 date: 2019-01-01
 type: projecte
-image: aledo.png
+image: images/projects/aledo-web.png
 color: "#708573"
 tags:
   - disseny
