@@ -8,7 +8,8 @@
 		"build": "astro build",
 		"preview": "astro preview",
 		"astro": "astro",
-		"i18n:generate": "astro-i18next generate"
+		"i18n:generate": "astro-i18next generate",
+		"i": "pnpm install --no-lockfile"
 	},
 	"dependencies": {
 		"@astrojs/preact": "2.2.1",
