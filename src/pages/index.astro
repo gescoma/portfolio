@@ -1,16 +1,16 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
-import { t, changeLanguage } from "i18next";
-import { Trans } from "astro-i18next/components";
-import Techs from "../content/techs.json";
-import Tag from "../components/Tag.astro";
-import ContactButtons from "../components/ContactButtons.astro";
-import Image from "../components/Image.astro";
+import Layout from "../layouts/Layout.astro"
+import Card from "../components/Card.astro"
+import { t, changeLanguage } from "i18next"
+import { Trans } from "astro-i18next/components"
+import Techs from "../content/techs.json"
+import Tag from "../components/Tag.astro"
+import ContactButtons from "../components/ContactButtons.astro"
+import Image from "../components/Image.astro"
 
-changeLanguage("en");
+changeLanguage("en")
 
-const projects = await Astro.glob("../content/projects/en/*.md");
+const projects = await Astro.glob("../content/projects/en/*.md")
 ---
 
 <Layout title={t("title")}>
@@ -197,5 +197,13 @@ const projects = await Astro.glob("../content/projects/en/*.md");
   .dialog__content h3,
   .dialog__content h2 {
     margin: 2rem 0;
+  }
+
+  .about-me img {
+    object-position: 0 30%;
+  }
+
+  .about-me .image {
+    background-position: 0 30%;
   }
 </style>

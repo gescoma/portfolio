@@ -226,10 +226,7 @@ const getCardStyles = () => {
     max-height: none;
   }
 
-  .card-image {
-    max-height: 500px;
-    padding: 0;
-  }
+
 
   .card-color {
     background-color: var(--primary-color);
@@ -292,9 +289,19 @@ const getCardStyles = () => {
     .card.card__active {
       padding: 3rem;
     }
+
+    .card-image {
+      max-height: 500px;
+    }
   }
 
   .dialog-content h3 {
     margin: 2rem 0;
+  }
+
+  .card-image {
+    min-height: 400px;
+    max-height: 400px;
+    padding: 0;
   }
 </style>
