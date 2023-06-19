@@ -3,16 +3,23 @@ import type { DefaultTFuncReturn } from "i18next"
 import { getContrastColor } from "../scripts/color"
 
 import Close from "./icons/Close.astro"
+import Image from "./Image.astro"
 export interface Props {
   title?: string | DefaultTFuncReturn
   body?: string | DefaultTFuncReturn
   size?: "small" | "medium" | "large"
-  backgroundType?: "color" | "gradient" | "image"
+  backgroundType?:
+    | "color"
+    | "organic-gradient"
+    | "image"
+    | "image-color"
+    | "gradient"
   backgroundImage?: string
   backgroundColors?: {
     primary: string
     secondary?: string
   }
+  imageAlt?: string
   clickable?: boolean
 }
 
@@ -31,50 +38,58 @@ const {
   },
   backgroundImage = "https://placehold.co/600x500",
   clickable = false,
+  imageAlt = "Introduce image alt text",
 } = Astro.props
 
 const styles: CSSStyles = {
-  "--primaryColor": backgroundColors.primary,
-  "--secondaryColor": backgroundColors.secondary || backgroundColors.primary,
+  "--primary-color": backgroundColors.primary,
+  "--secondary-color": backgroundColors.secondary || backgroundColors.primary,
 }
 
 const getCardStyles = () => {
-  const styles: CSSStyles = {}
-  if (backgroundType === "image") {
-    styles["--backgroundImage"] = `url("${backgroundImage}")`
-  }
-  if (backgroundType === "color") {
+  if (backgroundType === "color" || backgroundType === "image-color") {
     styles["--font-color"] = getContrastColor(backgroundColors.primary)
-    styles["--primaryColor"] = backgroundColors.primary
+    styles["--primary-color"] = backgroundColors.primary
   }
   return styles
 }
 ---
 
 <article
-  class={`card ${size} ${backgroundType === "image" && "card-image"} ${
-    backgroundType === "color" && "card-color"
-  } ${clickable && "card-clickable"}`}
+  class={`card ${size} ${
+    (backgroundType === "color" || backgroundType === "image-color") &&
+    "card-color"
+  } ${backgroundType === "image" && "card-image"} ${
+    clickable && "card-clickable"
+  }`}
   style={getCardStyles()}
 >
   {
-    backgroundType === "gradient" && (
-      <div class="card__gradient-background">
+    backgroundType === "organic-gradient" && (
+      <div class="card__organic-gradient-background">
         <span
-          class="card-circle card-circle-2"
+          class="card__circle card__circle-2"
           style={{
             background: backgroundColors.secondary,
             boxShadow: `0px 0px 200px 200px ${backgroundColors.secondary}`,
           }}
         />
         <span
-          class="card-circle card-circle-1"
+          class="card__circle card__circle-1"
           style={{
             background: backgroundColors.primary,
             boxShadow: `0px 0px 200px 200px ${backgroundColors.primary}`,
           }}
         />
       </div>
+    )
+  }
+  {
+    backgroundType === "image" && (
+      <Image src={backgroundImage} alt={imageAlt} lazy blur size="full" />
+      // <div class="card__image-background aut">
+      //   <img src={backgroundImage} alt={imageAlt} />
+      // </div>
     )
   }
   {title && <h2 set:html={title} />}
@@ -111,11 +126,22 @@ const getCardStyles = () => {
     color: var(--font-color);
   }
 
-  .card.card--active {
+  .card.card__active {
     padding: 2rem;
   }
-  .card__gradient-background {
+  .card__organic-gradient-background {
     z-index: -1;
+  }
+
+  .card__image-background {
+    width: 100%;
+    height: 100%;
+  }
+
+  .card__image-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .card.medium {
@@ -134,18 +160,18 @@ const getCardStyles = () => {
     margin: 0.5rem 0;
   }
 
-  .card-circle {
+  .card__circle {
     position: absolute;
     border-radius: 100%;
     opacity: 0.5;
   }
-  .card-circle-1 {
+  .card__circle-1 {
     top: -327px;
     right: 0;
     width: 380px;
     height: 380px;
   }
-  .card-circle-2 {
+  .card__circle-2 {
     bottom: -147px;
     right: -18px;
     width: 427px;
@@ -187,39 +213,48 @@ const getCardStyles = () => {
     display: none;
     color: var(--black);
   }
-  .card--active > .card__extended {
+  .card__active > .card__extended {
     display: block;
   }
 
+  .card__active > .card__image-background {
+    display: none;
+    visibility: hidden;
+  }
+
+  .card__active.card-image {
+    max-height: none;
+  }
+
   .card-image {
-    background-image: var(--backgroundImage);
-    background-size: cover;
-    background-position: center;
+    max-height: 500px;
+    padding: 0;
   }
 
   .card-color {
-    background-color: var(--primaryColor);
+    background-color: var(--primary-color);
   }
   .card-clickable {
     cursor: pointer;
     transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .card.card--active > .card__body,
-  .card.card--active > h2,
-  .card.card--active > h3 {
+  .card.card__active > .card__body,
+  .card.card__active > h2,
+  .card.card__active > h3 {
     display: none;
   }
 
-  .card.card--active.card-clickable {
+  .card.card__active.card-clickable {
     cursor: default;
     overflow-y: auto;
   }
 
-  .card:not(.card--active).card-clickable:hover,
-  .card:not(.card--active).card-clickable:focus,
-  .card:not(.card--active).card-clickable:active {
-    transform: scale(1.02);
+  .card:not(.card__active).card-clickable:hover,
+  .card:not(.card__active).card-clickable:focus,
+  .card:not(.card__active).card-clickable:active {
+    transform: scale(1.01);
+    transform-origin: center;
   }
 
   .card__extended {
@@ -254,7 +289,7 @@ const getCardStyles = () => {
   }
 
   @media (min-width: 768px) {
-    .card.card--active {
+    .card.card__active {
       padding: 3rem;
     }
   }
