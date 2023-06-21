@@ -1,5 +1,6 @@
 ---
 import { getContrastColor } from "../scripts/color"
+import Image from "./Image.astro"
 export interface Props {
   title: string
   size?: "normal" | "large" | "small" | "block"
@@ -29,15 +30,16 @@ const colorTexto = getContrastColor(colorFondo)
   {
     icon && (
     // insert svg from imageURL with the same fill color that the text
-      <img
+    // if the text is white, the svg will be black
+      <Image
         src={iconURL}
         style={{
-          width: "1.2rem",
-          height: "1.2rem",
           fill: colorTexto,
           filter: `invert(${colorTexto === "#fff" ? "1" : "0"}`,
         }}
-        loading="lazy"
+        alt={`${title} icon`}
+        size={`icon-${size}`}
+        lazy
       />
     )
   }</span
