@@ -1,5 +1,6 @@
 ---
 import Header from "../components/Header.astro"
+import { HeadHrefLangs } from "astro-i18next/components"
 import i18next from "i18next"
 export interface Props {
   title: string
@@ -17,6 +18,7 @@ const { title } = Astro.props
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <HeadHrefLangs />
   </head>
   <body>
     <Header />
@@ -24,173 +26,172 @@ const { title } = Astro.props
       <slot />
     </main>
     <div class="dialog-background"></div>
-  </body>
-</html>
-<style is:global>
-  @import url("/styles/satoshi.css");
-  @import url("/styles/animations.css");
-  :root {
-    --accent: 233, 189, 21;
-    --accent-hex: #ffdb59;
-    --accent-hsl: 47, 100%, 67%;
-    --accent-gradient: linear-gradient(
-      45deg,
-      rgb(var(--accent)),
-      hsl(var(--accent-hsl)) 30%,
-      white 60%
-    );
+  </body><style is:global>
+    @import url("/styles/satoshi.css");
+    @import url("/styles/animations.css");
+    :root {
+      --accent: 233, 189, 21;
+      --accent-hex: #ffdb59;
+      --accent-hsl: 47, 100%, 67%;
+      --accent-gradient: linear-gradient(
+        45deg,
+        rgb(var(--accent)),
+        hsl(var(--accent-hsl)) 30%,
+        white 60%
+      );
 
-    --white: rgba(255, 255, 255, 1);
-    --black: rgba(0, 0, 0, 1);
+      --white: rgba(255, 255, 255, 1);
+      --black: rgba(0, 0, 0, 1);
 
-    --font-size: 16px;
+      --font-size: 16px;
 
-    --secondary-hex: #9fac9a;
-  }
+      --secondary-hex: #9fac9a;
+    }
 
-  * {
-    box-sizing: border-box;
-    border: 0;
-    padding: 0;
-  }
+    * {
+      box-sizing: border-box;
+      border: 0;
+      padding: 0;
+    }
 
-  h2,
-  h3 {
-    margin: 0;
-  }
+    h2,
+    h3 {
+      margin: 0;
+    }
 
-  a {
-    font-weight: 500;
-    color: currentColor;
-    text-decoration: underline 0.05em rgba(0, 0, 0, 0);
-    text-underline-offset: 0.15em;
-    transition: text-decoration-color 300ms;
-  }
+    a {
+      font-weight: 500;
+      color: currentColor;
+      text-decoration: underline 0.05em rgba(0, 0, 0, 0);
+      text-underline-offset: 0.15em;
+      transition: text-decoration-color 300ms;
+    }
 
-  a:hover {
-    text-decoration-color: rgba(0, 0, 0, 1);
-  }
-</style>
+    a:hover {
+      text-decoration-color: rgba(0, 0, 0, 1);
+    }
+  </style>
 
-<style>
-  html {
-    font-family: Satoshi-Variable, system-ui, -apple-system, BlinkMacSystemFont,
-      "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
-      "Helvetica Neue", sans-serif;
-    background-color: #fafafa;
-    font-size: var(--font-size);
-  }
+  <style>
+    html {
+      font-family: Satoshi-Variable, system-ui, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+        "Open Sans", "Helvetica Neue", sans-serif;
+      background-color: #fafafa;
+      font-size: var(--font-size);
+    }
 
-  body {
-    margin: 0 auto;
-    max-width: 1100px;
-    padding: 0 1rem;
-  }
-
-  @media (min-width: 768px) {
     body {
-      padding: 0 2rem;
+      margin: 0 auto;
+      max-width: 1100px;
+      padding: 0 1rem;
     }
-  }
-  @media (min-width: 992px) {
-    body {
-      padding: 0 3rem;
-    }
-  }
 
-  .dialog-background {
-    position: fixed;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-    inset: 0;
-    min-height: 100vh;
-    display: none;
-    opacity: 0;
-    transition: opacity 0.2s ease-in-out;
-  }
-</style>
+    @media (min-width: 768px) {
+      body {
+        padding: 0 2rem;
+      }
+    }
+    @media (min-width: 992px) {
+      body {
+        padding: 0 3rem;
+      }
+    }
 
-<script>
-  const body = document.querySelector("body")
-  const main = document.querySelector("main")
-  let dialogOpened = false
-  const background = document.querySelector<HTMLElement>(".dialog-background")
-  const cards = document.querySelectorAll<HTMLElement>(".card-clickable")
+    .dialog-background {
+      position: fixed;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+      inset: 0;
+      min-height: 100vh;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out;
+    }
+  </style>
 
-  function addStyles(element: HTMLElement) {
-    dialogOpened = true
-    if (body) {
-      body.style.overflow = "hidden"
-    }
-    const mainSize = main?.getBoundingClientRect()
-    element.classList.toggle("card__active", true)
-    element.style.zIndex = "100"
-    element.style.background = "white"
-    element.style.position = "fixed"
-    if (mainSize) {
-      element.style.top = "54px"
-      element.style.left = mainSize.left + "px"
-      element.style.width = mainSize.width + "px"
-      element.style.bottom = "54px"
-      element.style.height = "auto"
-    }
-    if (background) {
-      background.style.display = "block"
-      setTimeout(() => {
-        background.style.opacity = "1"
-      }, 10)
-    }
-  }
+  <script>
+    const body = document.querySelector("body")
+    const main = document.querySelector("main")
+    let dialogOpened = false
+    const background = document.querySelector<HTMLElement>(".dialog-background")
+    const cards = document.querySelectorAll<HTMLElement>(".card-clickable")
 
-  function deleteStyles(element: HTMLElement) {
-    if (body) {
-      body.style.removeProperty("overflow")
-    }
-    dialogOpened = false
-    element.classList.toggle("card__active", false)
-    element.style.removeProperty("z-index")
-    element.style.removeProperty("background")
-    element.style.removeProperty("position")
-    element.style.removeProperty("top")
-    element.style.removeProperty("left")
-    element.style.removeProperty("width")
-    element.style.removeProperty("bottom")
-    element.style.removeProperty("height")
-    if (background) {
-      background.style.removeProperty("opacity")
-      setTimeout(() => {
-        background.style.removeProperty("display")
-      }, 200)
-    }
-  }
-
-  if (cards.length > 0) {
-    cards.forEach((card: HTMLElement) => {
-      const closeButton = card.querySelector<HTMLElement>(
-        ".card__extended__close"
-      )
-      card.addEventListener("click", (e) => {
-        if (e.currentTarget !== card) return
-        addStyles(card)
-      })
+    function addStyles(element: HTMLElement) {
+      dialogOpened = true
+      if (body) {
+        body.style.overflow = "hidden"
+      }
+      const mainSize = main?.getBoundingClientRect()
+      element.classList.toggle("card__active", true)
+      element.style.zIndex = "100"
+      element.style.background = "white"
+      element.style.position = "fixed"
+      if (mainSize) {
+        element.style.top = "54px"
+        element.style.left = mainSize.left + "px"
+        element.style.width = mainSize.width + "px"
+        element.style.bottom = "54px"
+        element.style.height = "auto"
+      }
       if (background) {
-        background.addEventListener("click", () => {
-          deleteStyles(card)
-        })
+        background.style.display = "block"
+        setTimeout(() => {
+          background.style.opacity = "1"
+        }, 10)
       }
-      if (closeButton) {
-        closeButton.addEventListener("click", (e) => {
-          e.stopPropagation()
-          deleteStyles(card)
-        })
-      }
-    })
+    }
 
-    window.addEventListener("resize", () => {
-      if (!dialogOpened) return
-      const card = document.querySelector<HTMLElement>(".card--active")
-      if (!card) return
-      deleteStyles(card)
-    })
-  }
-</script>
+    function deleteStyles(element: HTMLElement) {
+      if (body) {
+        body.style.removeProperty("overflow")
+      }
+      dialogOpened = false
+      element.classList.toggle("card__active", false)
+      element.style.removeProperty("z-index")
+      element.style.removeProperty("background")
+      element.style.removeProperty("position")
+      element.style.removeProperty("top")
+      element.style.removeProperty("left")
+      element.style.removeProperty("width")
+      element.style.removeProperty("bottom")
+      element.style.removeProperty("height")
+      if (background) {
+        background.style.removeProperty("opacity")
+        setTimeout(() => {
+          background.style.removeProperty("display")
+        }, 200)
+      }
+    }
+
+    if (cards.length > 0) {
+      cards.forEach((card: HTMLElement) => {
+        const closeButton = card.querySelector<HTMLElement>(
+          ".card__extended__close"
+        )
+        card.addEventListener("click", (e) => {
+          if (e.currentTarget !== card) return
+          addStyles(card)
+        })
+        if (background) {
+          background.addEventListener("click", () => {
+            deleteStyles(card)
+          })
+        }
+        if (closeButton) {
+          closeButton.addEventListener("click", (e) => {
+            e.stopPropagation()
+            deleteStyles(card)
+          })
+        }
+      })
+
+      window.addEventListener("resize", () => {
+        if (!dialogOpened) return
+        const card = document.querySelector<HTMLElement>(".card--active")
+        if (!card) return
+        deleteStyles(card)
+      })
+    }
+  </script>
+</html>
