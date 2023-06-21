@@ -1,23 +1,24 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
-import i18next, { t, changeLanguage } from "i18next";
-import { Trans } from "astro-i18next/components";
-import Techs from "../data/techs.json";
-import Tag from "../components/Tag.astro";
-import ContactButtons from "../components/ContactButtons.astro";
-import Image from "../components/Image.astro";
+import Layout from "../layouts/Layout.astro"
+import Card from "../components/Card.astro"
+import i18next, { t, changeLanguage } from "i18next"
+import { Trans } from "astro-i18next/components"
+import Techs from "../data/techs.json"
+import Tag from "../components/Tag.astro"
+import ContactButtons from "../components/ContactButtons.astro"
+import Image from "../components/Image.astro"
 
-changeLanguage("en");
+changeLanguage("en")
 
-const projects = await Astro.glob("../content/projects/*/*.md");
+const projects = await Astro.glob("../content/projects/*/*.md")
 const filteredProjects = projects.filter((project) => {
-    const url = project.file.split("/");
-    const lang = url[url.length - 2];
-    return lang === i18next.language;
-});
+  const url = project.file.split("/")
+  const lang = url[url.length - 2]
+  return lang === i18next.language
+})
 ---
 
+Hello
 <Layout title={t("title")}>
   <section class="presentation" title="presentation" id="home">
     <div class="hero">
