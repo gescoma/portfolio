@@ -1,16 +1,22 @@
 ---
-import Layout from "../../layouts/Layout.astro"
-import Card from "../../components/Card.astro"
-import { t, changeLanguage } from "i18next"
-import { Trans } from "astro-i18next/components"
-import Techs from "../../content/techs.json"
-import Tag from "../../components/Tag.astro"
-import ContactButtons from "../../components/ContactButtons.astro"
-import Image from "../../components/Image.astro"
+import Layout from "../../layouts/Layout.astro";
+import Card from "../../components/Card.astro";
+import { t, changeLanguage } from "i18next";
+import { Trans } from "astro-i18next/components";
+import Techs from "../../data/techs.json";
+import Tag from "../../components/Tag.astro";
+import ContactButtons from "../../components/ContactButtons.astro";
+import Image from "../../components/Image.astro";
+import i18next, { changeLanguage } from "i18next";
 
-changeLanguage("es")
+changeLanguage("es");
 
-const projects = await Astro.glob("../../content/projects/es/*.md")
+const projects = await Astro.glob("../../content/projects/*/*.md");
+const filteredProjects = projects.filter((project) => {
+    const url = project.file.split("/");
+    const lang = url[url.length - 2];
+    return lang === i18next.language;
+});
 ---
 
 <Layout title={t("title")}>
@@ -80,8 +86,8 @@ const projects = await Astro.glob("../../content/projects/es/*.md")
   </section>
   <section class="projects" title="Projects" id="projects">
     {
-      projects &&
-        projects.map(({ Content, ...project }) => (
+      filteredProjects &&
+        filteredProjects.map(({ Content, ...project }) => (
           <Card
             title={project.frontmatter.title}
             body={project.frontmatter.brief}
@@ -197,5 +203,13 @@ const projects = await Astro.glob("../../content/projects/es/*.md")
   .dialog__content h3,
   .dialog__content h2 {
     margin: 2rem 0;
+  }
+
+  .about-me img {
+    object-position: 0 30%;
+  }
+
+  .about-me .image {
+    background-position: 0 30%;
   }
 </style>
