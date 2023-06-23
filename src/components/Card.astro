@@ -2,7 +2,6 @@
 import type { DefaultTFuncReturn } from "i18next"
 import { getContrastColor } from "../scripts/color"
 
-import Close from "./icons/Close.astro"
 import Image from "./Image.astro"
 import Dialog from "./Dialog.astro"
 export interface Props {
@@ -16,6 +15,7 @@ export interface Props {
     | "image-color"
     | "gradient"
   backgroundImage?: string
+  backgroundImagePosition?: "center" | "left" | "right"
   backgroundColors?: {
     primary: string
     secondary?: string
@@ -40,6 +40,7 @@ const {
   backgroundImage = "https://placehold.co/600x500",
   clickable = false,
   imageAlt = "Introduce image alt text",
+  backgroundImagePosition = "center",
 } = Astro.props
 
 const styles: CSSStyles = {
@@ -88,9 +89,6 @@ const getCardStyles = () => {
   {
     backgroundType === "image" && (
       <Image src={backgroundImage} alt={imageAlt} lazy blur size="full" />
-      // <div class="card__image-background aut">
-      //   <img src={backgroundImage} alt={imageAlt} />
-      // </div>
     )
   }
   {title && <h2 set:html={title} />}
@@ -98,6 +96,14 @@ const getCardStyles = () => {
   <div class="card__body">
     <slot />
   </div>
+  {
+    backgroundType === "image-color" && (
+      <div class={`card__image-decoration card__image-decoration-${backgroundImagePosition}`} style={{
+        backgroundImage: `url(${backgroundImage})`,
+      }}>
+      </div>
+    )
+  }
   {
     clickable && (
       <Dialog>
@@ -145,11 +151,11 @@ const getCardStyles = () => {
 
   .card.medium {
     padding: 1.5rem;
-    min-height: 300px;
+    min-height: 350px;
   }
   .card.medium h2 {
     font-size: 1.4rem;
-    font-weight: 400;
+    font-weight: 500;
   }
 
   .card.medium h3 {
@@ -224,13 +230,14 @@ const getCardStyles = () => {
   }
   .card-clickable {
     cursor: pointer;
-    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .card.card__active > .card__body,
   .card.card__active > h2,
   .card.card__active > h3 {
     display: none;
+    visibility: hidden;
   }
 
   .card.card__active.card-clickable {
@@ -266,5 +273,29 @@ const getCardStyles = () => {
 
   .card__active :global(.card__extended) {
     display: block;
+    visibility: visible;
   }
+
+  /* IMAGE DECORATION */
+
+  .card__image-decoration {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    min-height: 250px;
+    overflow: hidden;
+    background-size: cover;
+  }
+
+  .card__image-decoration-right {
+    bottom: -1rem;
+    left: 3rem;
+    background-position: top left;
+  }
+
+  .card__active .card__image-decoration {
+    display: none;
+    visibility: hidden;
+  }
+
 </style>

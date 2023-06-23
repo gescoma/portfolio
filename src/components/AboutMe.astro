@@ -1,0 +1,111 @@
+---
+import { Trans } from "astro-i18next/components";
+import { t } from "i18next";
+import Card from "./Card.astro";
+import Tag from "./Tag.astro";
+import Image from "./Image.astro";
+
+import Techs from "../data/techs.json"
+---
+
+<div class="about-me">
+  <Card
+    backgroundType="image"
+    backgroundImage="/images/profile_picture.jpeg"
+    size="large"
+    clickable
+  >
+    <div slot="dialog-content">
+      <div class="dialog__header">
+        <Image
+          src="/images/profile_picture_1.jpeg"
+          alt={t("about-me.image-alt")}
+          size="medium"
+          rounded="small"
+          square
+          lazy
+          blur
+        />
+        <h2>Gerard Escòlies Martínez</h2>
+      </div>
+      <div class="dialog__content">
+        <h2>{t("about-me.title")}</h2>
+        <Trans i18nKey="about-me.body">
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </Trans>
+        <h2>{t("about-me.habilities.title")}</h2>
+        <p>{t("about-me.habilities.body")}</p>
+        <h2>{t("about-me.habilities.subtitle")}</h2>
+        <div class="about-me__habilities__tabs">
+          {
+            Techs.technologies.map((tech) => (
+              <Tag
+                title={tech.name}
+                color={tech.color}
+                icon={tech.image ? true : false}
+                iconURL={tech.image}
+              />
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </Card>
+</div>
+
+<style>
+  .about-me {
+    order: 1;
+    min-height: 300px;
+  }
+
+  .about-me :global(img) {
+    object-position: 0 30%;
+  }
+
+  .about-me :global(.image) {
+    background-position: 0 30%;
+  }
+
+  .dialog__content :global(h3),
+  .dialog__content :global(h2) {
+    margin: 2rem 0;
+  }
+
+  
+  .dialog__header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .dialog__header :global(h2) {
+    margin: 0;
+  }
+  .dialog__header img.profile {
+    margin: 0;
+    max-width: 100px;
+    width: 100%;
+    max-height: 100px;
+    height: 100%;
+    border-radius: 0.75rem;
+    object-fit: cover;
+  }
+
+  .about-me__habilities__tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .about-me {
+      order: 2;
+      min-height: 500px;
+    }
+  }
+</style>

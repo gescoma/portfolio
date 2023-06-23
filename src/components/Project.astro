@@ -1,0 +1,36 @@
+---
+export interface Props {
+  project: {
+    frontmatter: {
+      title: string
+      brief: string
+      color: string
+      image: string
+      position: string
+    }
+    Content: string
+  }
+}
+
+const {
+  project: { frontmatter, Content },
+}: Props = Astro.props
+
+import Card from "./Card.astro"
+---
+
+<Card
+  title={frontmatter.title}
+  body={frontmatter.brief}
+  backgroundType="image-color"
+  backgroundColors={{ primary: frontmatter.color }}
+  backgroundImage={frontmatter.image}
+  backgroundImagePosition={frontmatter.position}
+  clickable
+>
+  <div slot="dialog-content">
+    <div class="dialog__content">
+      <Content />
+    </div>
+  </div>
+</Card>

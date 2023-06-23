@@ -12,10 +12,8 @@ import Close from "./icons/Close.astro"
 <style>
   .card__extended {
     display: none;
+    visibility: hidden;
     color: var(--black);
-  }
-
-  .card__extended {
     position: relative;
   }
 
@@ -28,7 +26,7 @@ import Close from "./icons/Close.astro"
     background: none;
     cursor: pointer;
     color: #95a5a6;
-    transition: color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: color 0.1s cubic-bezier(0.22, 1, 0.36, 1);
     width: 2rem;
     height: 2rem;
   }
@@ -73,9 +71,10 @@ import Close from "./icons/Close.astro"
     }
     if (background) {
       background.style.display = "block"
+      background.style.visibility = "visible"
       setTimeout(() => {
         background.style.opacity = "1"
-      }, 10)
+      }, 20)
     }
   }
 
@@ -95,9 +94,10 @@ import Close from "./icons/Close.astro"
     element.style.removeProperty("height")
     if (background) {
       background.style.removeProperty("opacity")
+      background.style.removeProperty("visibility")
       setTimeout(() => {
         background.style.removeProperty("display")
-      }, 200)
+      }, 20)
     }
   }
 

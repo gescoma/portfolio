@@ -64,11 +64,13 @@ import { LanguageSelector } from "astro-i18next/components";
 
   .hide-mobile {
     display: none;
+    visibility: hidden;
   }
 
   @media (min-width: 768px) {
     .hide-mobile {
       display: block;
+      visibility: visible;
     }
   }
 </style>

@@ -1,0 +1,17 @@
+---
+import i18next from "i18next"
+import Project from "./Project.astro"
+
+const projects = await Astro.glob("../content/projects/*/*.md")
+
+const filteredProjects = projects.filter((project) => {
+  const url = project.file.split("/")
+  const lang = url[url.length - 2]
+  return lang === i18next.language
+})
+---
+
+{
+  filteredProjects &&
+    filteredProjects.map((project) => <Project project={project} />)
+}
