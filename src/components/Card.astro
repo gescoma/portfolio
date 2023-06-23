@@ -103,7 +103,7 @@ const getCardStyles = () => {
         style={{
           backgroundImage: `url(${backgroundImage})`,
         }}
-      ></div>
+      />
     )
   }
   {
@@ -285,6 +285,24 @@ const getCardStyles = () => {
     min-height: 250px;
     overflow: hidden;
     background-size: cover;
+    border-radius: 0.6rem;
+    oberflow: hidden;
+  }
+
+  .card__image-decoration-center {
+    bottom: -1rem;
+    left: 3rem;
+    right: 3rem;
+    width: calc(100% - 6rem);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+  }
+
+  .card__image-decoration-left {
+    bottom: -1rem;
+    right: 3rem;
+    background-position: top right;
   }
 
   .card__image-decoration-right {
