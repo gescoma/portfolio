@@ -98,10 +98,12 @@ const getCardStyles = () => {
   </div>
   {
     backgroundType === "image-color" && (
-      <div class={`card__image-decoration card__image-decoration-${backgroundImagePosition}`} style={{
-        backgroundImage: `url(${backgroundImage})`,
-      }}>
-      </div>
+      <div
+        class={`card__image-decoration card__image-decoration-${backgroundImagePosition}`}
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+        }}
+      ></div>
     )
   }
   {
@@ -223,8 +225,6 @@ const getCardStyles = () => {
     max-height: none;
   }
 
-
-
   .card-color {
     background-color: var(--primary-color);
   }
@@ -297,5 +297,4 @@ const getCardStyles = () => {
     display: none;
     visibility: hidden;
   }
-
 </style>

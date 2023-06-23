@@ -1,5 +1,4 @@
 ---
-
 import { t } from "i18next"
 import Link from "./Link.astro"
 import Github from "./icons/Github.astro"
@@ -13,21 +12,35 @@ interface Button {
   string: string | false
   link: string
   size: "small" | "large"
-  type: "light" | "dark" | "primary" | "secondary" | "success" | "danger" | "warning" | "info"
+  type:
+    | "light"
+    | "dark"
+    | "primary"
+    | "secondary"
+    | "success"
+    | "danger"
+    | "warning"
+    | "info"
   hasIcon: boolean
   Content: JSX.Element
-  target?: string,
+  target?: string
   rel?: string
 }
 
 interface OutsideLink {
-  target: "_blank" | "_self" | "_parent" | "_top",
-  rel: "noopener" | "noreferrer" | "noopener noreferrer" | "noopener nofollow" | "nofollow" | "noreferrer nofollow"
+  target: "_blank" | "_self" | "_parent" | "_top"
+  rel:
+    | "noopener"
+    | "noreferrer"
+    | "noopener noreferrer"
+    | "noopener nofollow"
+    | "nofollow"
+    | "noreferrer nofollow"
 }
 
 const outsideLink: OutsideLink = {
   target: "_blank",
-  rel: "noopener nofollow"
+  rel: "noopener nofollow",
 }
 
 const buttons: Button[] = [
@@ -38,9 +51,7 @@ const buttons: Button[] = [
     size: "large",
     type: "dark",
     hasIcon: false,
-    Content: () => (
-      t(`presentation.contact-me`)
-    ),
+    Content: () => t(`presentation.contact-me`),
   },
   {
     name: "Github",
@@ -50,8 +61,8 @@ const buttons: Button[] = [
     type: "light",
     hasIcon: true,
     Content: Github,
-    ...outsideLink
-  }, 
+    ...outsideLink,
+  },
   {
     name: "Linkedin",
     string: false,
@@ -60,19 +71,28 @@ const buttons: Button[] = [
     type: "light",
     hasIcon: true,
     Content: Linkedin,
-    ...outsideLink
-  }
+    ...outsideLink,
+  },
 ]
 ---
 
 <div class="buttons">
-  {buttons.map((button) => {
-    const Content = button.Content
-    return (
-    <Link href={button.link} size={button.size} icon={button.hasIcon} type={button.type} rel={button.rel ?? ""} target={button.target ?? ""}>
-      <Content width={iconSize} height="auto" />
-    </Link>
-    )})
+  {
+    buttons.map((button) => {
+      const Content = button.Content
+      return (
+        <Link
+          href={button.link}
+          size={button.size}
+          icon={button.hasIcon}
+          type={button.type}
+          rel={button.rel ?? ""}
+          target={button.target ?? ""}
+        >
+          <Content width={iconSize} height="auto" />
+        </Link>
+      )
+    })
   }
 </div>
 

@@ -6,7 +6,7 @@ import Close from "./icons/Close.astro"
   <button class="card__extended__close">
     <Close width="100%" height="100%" />
   </button>
-  <slot/>
+  <slot />
 </div>
 
 <style>
@@ -107,7 +107,8 @@ import Close from "./icons/Close.astro"
         ".card__extended__close"
       )
       card.addEventListener("click", (e) => {
-        if((e.currentTarget as Element).classList.contains("card__active")) return
+        if ((e.currentTarget as Element).classList.contains("card__active"))
+          return
         if (e.currentTarget !== card) return
         addStyles(card)
       })

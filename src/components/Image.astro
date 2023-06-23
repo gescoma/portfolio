@@ -2,7 +2,15 @@
 export interface Props {
   src: string
   alt: string
-  size?: "small" | "medium" | "large" | "full" | "icon-normal" | "icon-large" | "icon-small" | "icon-block"
+  size?:
+    | "small"
+    | "medium"
+    | "large"
+    | "full"
+    | "icon-normal"
+    | "icon-large"
+    | "icon-small"
+    | "icon-block"
   rounded?: "full" | "medium" | "large" | "none" | "small"
   lazy?: boolean
   blur?: boolean
