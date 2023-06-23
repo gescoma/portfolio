@@ -4,6 +4,7 @@ import { getContrastColor } from "../scripts/color"
 
 import Close from "./icons/Close.astro"
 import Image from "./Image.astro"
+import Dialog from "./Dialog.astro"
 export interface Props {
   title?: string | DefaultTFuncReturn
   body?: string | DefaultTFuncReturn
@@ -99,15 +100,13 @@ const getCardStyles = () => {
   </div>
   {
     clickable && (
-      <div class="card__extended">
-        <button class="card__extended__close">
-          <Close width="100%" height="100%" />
-        </button>
+      <Dialog>
         <slot name="dialog-content" />
-      </div>
+      </Dialog>
     )
   }
 </article>
+
 <style>
   h2 {
     text-wrap: balance;
@@ -209,14 +208,6 @@ const getCardStyles = () => {
     margin-top: auto;
   }
 
-  .card__extended {
-    display: none;
-    color: var(--black);
-  }
-  .card__active > .card__extended {
-    display: block;
-  }
-
   .card__active > .card__image-background {
     display: none;
     visibility: hidden;
@@ -254,37 +245,6 @@ const getCardStyles = () => {
     transform-origin: center;
   }
 
-  .card__extended {
-    position: relative;
-  }
-
-  .card__extended__close {
-    position: absolute;
-    top: -0.5rem;
-    right: -0.5rem;
-    border: none;
-    padding: 0;
-    background: none;
-    cursor: pointer;
-    color: #95a5a6;
-    transition: color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
-    width: 2rem;
-    height: 2rem;
-  }
-
-  .card__extended__close:hover,
-  .card__extended__close:focus,
-  .card__extended__close:active {
-    color: black;
-  }
-
-  @media (min-width: 992px) {
-    .card__extended__close {
-      width: 3rem;
-      height: 3rem;
-    }
-  }
-
   .card-image {
     min-height: 400px;
     max-height: 400px;
@@ -300,93 +260,11 @@ const getCardStyles = () => {
     }
   }
 
-  .dialog-content h3 {
+  .dialog-content :global(h3) {
     margin: 2rem 0;
   }
+
+  .card__active :global(.card__extended) {
+    display: block;
+  }
 </style>
-
-<script>
-  const body = document.querySelector("body")
-  const main = document.querySelector("main")
-  let dialogOpened = false
-  const background = document.querySelector<HTMLElement>(".dialog-background")
-  const cards = document.querySelectorAll<HTMLElement>(".card-clickable")
-
-  function addStyles(element: HTMLElement) {
-    dialogOpened = true
-    if (body) {
-      body.style.overflow = "hidden"
-    }
-    const mainSize = main?.getBoundingClientRect()
-    element.classList.toggle("card__active", true)
-    element.style.zIndex = "100"
-    element.style.background = "white"
-    element.style.position = "fixed"
-    if (mainSize) {
-      element.style.top = "54px"
-      element.style.left = mainSize.left + "px"
-      element.style.width = mainSize.width + "px"
-      element.style.bottom = "54px"
-      element.style.height = "auto"
-    }
-    if (background) {
-      background.style.display = "block"
-      setTimeout(() => {
-        background.style.opacity = "1"
-      }, 10)
-    }
-  }
-
-  function deleteStyles(element: HTMLElement) {
-    if (body) {
-      body.style.removeProperty("overflow")
-    }
-    dialogOpened = false
-    element.classList.toggle("card__active", false)
-    element.style.removeProperty("z-index")
-    element.style.removeProperty("background")
-    element.style.removeProperty("position")
-    element.style.removeProperty("top")
-    element.style.removeProperty("left")
-    element.style.removeProperty("width")
-    element.style.removeProperty("bottom")
-    element.style.removeProperty("height")
-    if (background) {
-      background.style.removeProperty("opacity")
-      setTimeout(() => {
-        background.style.removeProperty("display")
-      }, 200)
-    }
-  }
-
-  if (cards.length > 0) {
-    cards.forEach((card: HTMLElement) => {
-      const closeButton = card.querySelector<HTMLElement>(
-        ".card__extended__close"
-      )
-      card.addEventListener("click", (e) => {
-        if((e.currentTarget as Element).classList.contains("card__active")) return
-        if (e.currentTarget !== card) return
-        addStyles(card)
-      })
-      if (background) {
-        background.addEventListener("click", () => {
-          deleteStyles(card)
-        })
-      }
-      if (closeButton) {
-        closeButton.addEventListener("click", (e) => {
-          e.stopPropagation()
-          deleteStyles(card)
-        })
-      }
-    })
-
-    window.addEventListener("resize", () => {
-      if (!dialogOpened) return
-      const card = document.querySelector<HTMLElement>(".card__active")
-      if (!card) return
-      deleteStyles(card)
-    })
-  }
-</script>
