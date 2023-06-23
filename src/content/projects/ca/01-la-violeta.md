@@ -4,7 +4,7 @@ brief: Un lloc web per a un negoci local.
 date: 2019-01-01
 type: projecte
 image: images/projects/la-violeta-web.png
-position: "center"
+position: "right"
 color: "#a29bfe"
 tags:
   - disseny
