@@ -4,6 +4,7 @@ brief: Un sitio web para un negocio local.
 date: 2019-01-01
 type: proyecto
 image: images/projects/aledo-web.png
+position: "right"
 color: "#708573"
 tags:
   - diseño
