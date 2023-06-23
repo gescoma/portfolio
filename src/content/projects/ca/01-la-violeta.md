@@ -3,7 +3,8 @@ title: La Violeta
 brief: Un lloc web per a un negoci local.
 date: 2019-01-01
 type: projecte
-image: la-violeta.png
+image: images/projects/la-violeta-web.png
+position: "center"
 color: "#a29bfe"
 tags:
   - disseny

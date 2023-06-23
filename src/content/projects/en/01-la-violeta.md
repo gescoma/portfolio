@@ -3,7 +3,8 @@ title: La Violeta
 brief: A website for a local business.
 date: 2019-01-01
 type: project
-image: la-violeta.png
+image: images/projects/la-violeta-web.png
+position: "center"
 color: "#a29bfe"
 tags:
   - design
