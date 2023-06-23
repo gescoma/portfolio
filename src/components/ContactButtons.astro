@@ -1,37 +1,89 @@
 ---
+
 import { t } from "i18next"
 import Link from "./Link.astro"
 import Github from "./icons/Github.astro"
 import Linkedin from "./icons/Linkedin.astro"
+import type Card from "./Card.astro"
 
 const iconSize = "calc(var(--font-size) + 0.6rem)"
+
+interface Button {
+  name: string
+  string: string | false
+  link: string
+  size: "small" | "large"
+  type: "light" | "dark" | "primary" | "secondary" | "success" | "danger" | "warning" | "info"
+  hasIcon: boolean
+  Content: JSX.Element
+  target?: string,
+  rel?: string
+}
+
+interface OutsideLink {
+  target: "_blank" | "_self" | "_parent" | "_top",
+  rel: "noopener" | "noreferrer" | "noopener noreferrer" | "noopener nofollow" | "nofollow" | "noreferrer nofollow"
+}
+
+const outsideLink: OutsideLink = {
+  target: "_blank",
+  rel: "noopener nofollow"
+}
+
+const buttons: Button[] = [
+  {
+    name: "Contact-me",
+    string: "presentation.contact-me",
+    link: "mailto:gerard@escoliesmartinez.com",
+    size: "large",
+    type: "dark",
+    hasIcon: false,
+    Content: () => (
+      t(`presentation.contact-me`)
+    ),
+  },
+  {
+    name: "Github",
+    string: false,
+    link: "https://github.com/gescoma",
+    size: "large",
+    type: "light",
+    hasIcon: true,
+    Content: Github,
+    ...outsideLink
+  }, 
+  {
+    name: "Linkedin",
+    string: false,
+    link: "https://www.linkedin.com/in/gerard-escolies-martinez",
+    size: "large",
+    type: "light",
+    hasIcon: true,
+    Content: Linkedin,
+    ...outsideLink
+  },
+  {
+    name: "Curriculum",
+    string: false,
+    link: "google.com",
+    size: "large",
+    type: "light",
+    hasIcon: true,
+    Content: Linkedin,
+    ...outsideLink
+  }
+]
 ---
 
 <div class="buttons">
-  <Link href="mailto:gerard@escoliesmartinez.com" size="large">
-    {t("presentation.contact-me")}
-  </Link>
-  <Link
-    href="https://github.com/gescoma"
-    target="_blank"
-    rel=""
-    type="light"
-    size="large"
-    icon
-  >
-    <Github width={iconSize} height="auto" />
-  </Link>
-  <Link
-    href="https://www.linkedin.com/in/gerard-escolies-martinez"
-    target="_blank"
-    rel="noopener nofollow"
-    aria-label="My linkedin user"
-    type="light"
-    size="large"
-    icon
-  >
-    <Linkedin width={iconSize} height="auto" />
-  </Link>
+  {buttons.map((button) => {
+    const Content = button.Content
+    return (
+    <Link href={button.link} size={button.size} icon={button.hasIcon} type={button.type} rel={button.rel ?? ""} target={button.target ?? ""}>
+      <Content width={iconSize} height="auto" />
+    </Link>
+    )})
+  }
 </div>
 
 <style>
