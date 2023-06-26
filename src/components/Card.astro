@@ -4,6 +4,7 @@ import { getContrastColor } from "../scripts/color"
 
 import Image from "./Image.astro"
 import Dialog from "./Dialog.astro"
+import OpenButton from "./OpenButton.astro"
 export interface Props {
   title?: string | DefaultTFuncReturn
   body?: string | DefaultTFuncReturn
@@ -94,6 +95,7 @@ const getCardStyles = () => {
   {title && <h2 set:html={title} />}
   {body && <h3 set:html={body} />}
   <div class="card__body">
+    {clickable && <OpenButton color={backgroundColors.primary} />}
     <slot />
   </div>
   {
@@ -186,9 +188,9 @@ const getCardStyles = () => {
   }
   .card.large h2 {
     margin: 0;
-    font-size: 1.25rem;
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 600;
+    line-height: 1.2;
   }
   .card.large h3 {
     margin: 1.5rem 0 3rem 0;
@@ -199,13 +201,13 @@ const getCardStyles = () => {
 
   @media (min-width: 768px) {
     .card.large h2 {
-      font-size: 2.25rem;
+      font-size: 2.8rem;
     }
   }
 
   @media (min-width: 992px) {
     .card.large h2 {
-      font-size: 2.5rem;
+      font-size: 3rem;
     }
     .card.large h3 {
       margin: 3rem 0 5rem 0;
@@ -263,7 +265,7 @@ const getCardStyles = () => {
     }
 
     .card-image {
-      max-height: 500px;
+      max-height: none;
     }
   }
 
