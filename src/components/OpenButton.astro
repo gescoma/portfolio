@@ -29,7 +29,6 @@ const { color = "black", size = "normal", text="About-me" } = Astro.props
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
-    gap: 0.5rem;
     transition: all 0.2s ease-in-out;
   }
   div.text {
@@ -44,6 +43,7 @@ const { color = "black", size = "normal", text="About-me" } = Astro.props
   div.link-notice:hover .text{
     width: 0;
     animation: open 0.2s ease-in-out forwards;
+    margin-right: 0.5rem;
   }
 
   @keyframes open {
