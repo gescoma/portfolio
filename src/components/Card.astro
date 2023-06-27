@@ -23,6 +23,12 @@ export interface Props {
   }
   imageAlt?: string
   clickable?: boolean
+  content?: string | DefaultTFuncReturn
+}
+
+interface ClickableProps extends Props {
+  clickable: true
+  content: string | DefaultTFuncReturn
 }
 
 interface CSSStyles {
@@ -42,7 +48,8 @@ const {
   clickable = false,
   imageAlt = "Introduce image alt text",
   backgroundImagePosition = "center",
-} = Astro.props
+  content,
+} = Astro.props as Props | ClickableProps
 
 const styles: CSSStyles = {
   "--primary-color": backgroundColors.primary,
@@ -95,7 +102,11 @@ const getCardStyles = () => {
   {title && <h2 set:html={title} />}
   {body && <h3 set:html={body} />}
   <div class="card__body">
-    {clickable && <OpenButton color={backgroundColors.primary} />}
+    {
+      clickable && (
+        <OpenButton color={backgroundColors.primary} text={content} />
+      )
+    }
     <slot />
   </div>
   {

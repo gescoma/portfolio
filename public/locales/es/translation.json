@@ -20,6 +20,9 @@
       "subtitle": "He trabajado con:"
     }
   },
+  "projects": {
+    "readMore": "Leer más"
+  },
   "contacto": {
     "title": "Contáctame",
     "body": "Si deseas contactarme, puedes hacerlo enviándome un correo electrónico a <a href='mailto:gerard@escoliesmartinez.com'>gerard@escoliesmartinez.com</a> o a través de LinkedIn."
