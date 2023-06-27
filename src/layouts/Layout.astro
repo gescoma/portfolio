@@ -62,7 +62,9 @@ const { title } = Astro.props
       a {
         font-weight: 500;
         color: currentColor;
-        text-decoration: underline 0.05em rgba(0, 0, 0, 0);
+        text-decoration-line: underline;
+        text-decoration-color: rgba(0, 0, 0, 0);
+        text-decoration-thickness: 0.05em;
         text-underline-offset: 0.15em;
         transition: text-decoration-color 300ms;
       }
