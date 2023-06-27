@@ -20,6 +20,7 @@ export interface Props {
   backgroundColors?: {
     primary: string
     secondary?: string
+    opacity?: number
   }
   imageAlt?: string
   clickable?: boolean
@@ -43,6 +44,7 @@ const {
   backgroundColors = {
     primary: "var(--secondary-hex)",
     secondary: "var(--accent-hex)",
+    opacity: 0.4,
   },
   backgroundImage = "https://placehold.co/600x500",
   clickable = false,
@@ -63,7 +65,10 @@ const getCardStyles = () => {
 
   if (backgroundType === "image-color") {
     styles["--font-color"] = "var(--black)"
-    styles["--primary-color"] = hexToRGB(backgroundColors.primary, 0.4)
+    styles["--primary-color"] = hexToRGB(
+      backgroundColors.primary,
+      backgroundColors.opacity || 0.4
+    )
   }
   return styles
 }
@@ -333,7 +338,7 @@ const getCardStyles = () => {
 
   .card__image-decoration-right {
     bottom: -1rem;
-    left: 3rem;
+    left: 1.5rem;
     background-position: top left;
   }
 

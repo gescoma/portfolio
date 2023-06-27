@@ -7,6 +7,7 @@ export interface Props {
       color: string
       image: string
       position: string
+      opacity: number
     }
     Content: string
   }
@@ -24,7 +25,10 @@ import Card from "./Card.astro"
   title={frontmatter.title}
   body={frontmatter.brief}
   backgroundType="image-color"
-  backgroundColors={{ primary: frontmatter.color }}
+  backgroundColors={{
+    primary: frontmatter.color,
+    opacity: frontmatter.opacity,
+  }}
   backgroundImage={frontmatter.image}
   backgroundImagePosition={frontmatter.position as "center" | "left" | "right"}
   clickable
