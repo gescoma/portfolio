@@ -1,6 +1,6 @@
 ---
 import type { DefaultTFuncReturn } from "i18next"
-import { getContrastColor } from "../scripts/color"
+import { getContrastColor, hexToRGB } from "../scripts/color"
 
 import Image from "./Image.astro"
 import Dialog from "./Dialog.astro"
@@ -20,9 +20,16 @@ export interface Props {
   backgroundColors?: {
     primary: string
     secondary?: string
+    opacity?: number
   }
   imageAlt?: string
   clickable?: boolean
+  content?: string | DefaultTFuncReturn
+}
+
+interface ClickableProps extends Props {
+  clickable: true
+  content: string | DefaultTFuncReturn
 }
 
 interface CSSStyles {
@@ -37,22 +44,31 @@ const {
   backgroundColors = {
     primary: "var(--secondary-hex)",
     secondary: "var(--accent-hex)",
+    opacity: 0.4,
   },
   backgroundImage = "https://placehold.co/600x500",
   clickable = false,
   imageAlt = "Introduce image alt text",
   backgroundImagePosition = "center",
-} = Astro.props
+  content,
+} = Astro.props as Props | ClickableProps
 
 const styles: CSSStyles = {
-  "--primary-color": backgroundColors.primary,
   "--secondary-color": backgroundColors.secondary || backgroundColors.primary,
 }
 
 const getCardStyles = () => {
-  if (backgroundType === "color" || backgroundType === "image-color") {
+  if (backgroundType === "color") {
     styles["--font-color"] = getContrastColor(backgroundColors.primary)
     styles["--primary-color"] = backgroundColors.primary
+  }
+
+  if (backgroundType === "image-color") {
+    styles["--font-color"] = "var(--black)"
+    styles["--primary-color"] = hexToRGB(
+      backgroundColors.primary,
+      backgroundColors.opacity || 0.4
+    )
   }
   return styles
 }
@@ -66,6 +82,7 @@ const getCardStyles = () => {
     clickable && "card-clickable"
   }`}
   style={getCardStyles()}
+  title={title}
 >
   {
     backgroundType === "organic-gradient" && (
@@ -95,7 +112,11 @@ const getCardStyles = () => {
   {title && <h2 set:html={title} />}
   {body && <h3 set:html={body} />}
   <div class="card__body">
-    {clickable && <OpenButton color={backgroundColors.primary} />}
+    {
+      clickable && (
+        <OpenButton color={backgroundColors.primary} text={content} />
+      )
+    }
     <slot />
   </div>
   {
@@ -120,6 +141,10 @@ const getCardStyles = () => {
 <style>
   h2 {
     text-wrap: balance;
+  }
+
+  h3 {
+    opacity: 0.7;
   }
   .card {
     display: flex;
@@ -160,6 +185,7 @@ const getCardStyles = () => {
   .card.medium h2 {
     font-size: 1.4rem;
     font-weight: 500;
+    letter-spacing: -0.5px;
   }
 
   .card.medium h3 {
@@ -191,6 +217,7 @@ const getCardStyles = () => {
     font-size: 2.5rem;
     font-weight: 600;
     line-height: 1.2;
+    letter-spacing: -0.5px;
   }
   .card.large h3 {
     margin: 1.5rem 0 3rem 0;
@@ -202,12 +229,14 @@ const getCardStyles = () => {
   @media (min-width: 768px) {
     .card.large h2 {
       font-size: 2.8rem;
+      letter-spacing: -1px;
     }
   }
 
   @media (min-width: 992px) {
     .card.large h2 {
       font-size: 3rem;
+      letter-spacing: -1.5px;
     }
     .card.large h3 {
       margin: 3rem 0 5rem 0;
@@ -309,7 +338,7 @@ const getCardStyles = () => {
 
   .card__image-decoration-right {
     bottom: -1rem;
-    left: 3rem;
+    left: 1.5rem;
     background-position: top left;
   }
 

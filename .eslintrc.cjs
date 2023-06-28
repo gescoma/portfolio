@@ -4,6 +4,10 @@ module.exports = {
     // ...
     "plugin:astro/recommended",
   ],
+  "parserOptions": {
+      "sourceType": "module",
+      "ecmaVersion": "latest"
+  },
   // ...
   overrides: [
     {
@@ -22,6 +26,22 @@ module.exports = {
         // "astro/no-set-html-directive": "error"
       },
     },
+    {
+      // Define the configuration for `.ts` files.
+      files: ["*.ts"],
+      parserOptions: {
+        // Parse the TypeScript using the TypeScript parser.
+        parser: "@typescript-eslint/parser",
+      },
+      // Extend the TypeScript rules.
+      extends: [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+      ],
+      rules: {
+        // Disable ESLint rules that would conflict with prettier.
+      }
+    }
     // ...
   ],
 }

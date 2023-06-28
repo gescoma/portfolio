@@ -20,6 +20,9 @@
       "subtitle": "He treballat amb:"
     }
   },
+  "projects": {
+    "readMore": "Llegeix més"
+  },
   "contact": {
     "title": "Contacta amb mi",
     "body": "Si vols contactar amb mi, pots fer-ho enviant-me un correu electrònic a <a href='mailto:gerard@escoliesmartinez.com'>gerard@escoliesmartinez.com</a> o a través de linkedIn."

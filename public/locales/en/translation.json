@@ -20,6 +20,9 @@
       "subtitle": "I have worked with:"
     }
   },
+  "projects": {
+    "readMore": "Read more"
+  },
   "contact": {
     "title": "Contact with me",
     "body": "If you want to contact me, you can do it through the following form or through my email address <a href='mailto:gerard@escoliesmartinez.com'>gerard@escoliesmartinez.com</a> or via linkedin"
