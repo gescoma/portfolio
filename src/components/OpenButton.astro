@@ -12,10 +12,10 @@ const { color = "black", size = "normal", text } = Astro.props
 //todo: text comes from under the icon and the button size gets bigger with transition
 ---
 
-<div class="link-notice" style={{ color }}>
+<button class="link-notice" style={{ color }}>
   <div class="text">{text}</div>
   <TopRightArrow width="1rem" height="1rem" color={color} />
-</div>
+</button>
 
 <style>
   .link-notice {
@@ -30,6 +30,7 @@ const { color = "black", size = "normal", text } = Astro.props
     top: 1.5rem;
     right: 1.5rem;
   }
+
 
   @media (max-width: 767px) {
     .link-notice :global(svg) {

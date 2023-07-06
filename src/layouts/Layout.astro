@@ -25,7 +25,6 @@ const { title } = Astro.props
     <main id="wrapper">
       <slot />
     </main>
-    <div class="dialog-background"></div>
     <style is:global>
       @import url("/styles/satoshi.css");
       @import url("/styles/animations.css");
@@ -98,18 +97,6 @@ const { title } = Astro.props
         body {
           padding: 0 3rem;
         }
-      }
-
-      .dialog-background {
-        position: fixed;
-        background-color: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(5px);
-        inset: 0;
-        min-height: 100vh;
-        display: none;
-        visibility: hidden;
-        opacity: 0;
-        transition: opacity 0.1s ease-in-out;
       }
     </style>
   </body>
