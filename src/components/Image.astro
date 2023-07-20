@@ -1,5 +1,5 @@
 ---
-export interface Props {
+export interface Props extends astroHTML.JSX.ImgHTMLAttributes {
   src: string
   alt: string
   size?:
@@ -29,6 +29,7 @@ const {
   rounded = "none",
   square = false,
   style = {},
+  ...attributes
 }: Props = Astro.props
 
 if (!src) {
@@ -63,12 +64,13 @@ if (!["jpg", "jpeg", "png", "svg"].includes(imageExtension)) {
           ...style,
         }}
       >
-        <img alt={alt} loading="lazy" src={src} />
+        <img alt={alt} loading="lazy" src={src} {...attributes} />
       </div>
     ) : (
       <img
         src={src}
         alt={alt}
+        {...attributes}
         loading="lazy"
         class={`image image-${size} image-lazy image-rounded-${rounded} ${
           square ? "image-square" : ""
@@ -80,6 +82,7 @@ if (!["jpg", "jpeg", "png", "svg"].includes(imageExtension)) {
     <img
       src={src}
       alt={alt}
+      {...attributes}
       class={`image image-${size} image-rounded-${rounded} ${
         square ? "image-square" : ""
       }`}

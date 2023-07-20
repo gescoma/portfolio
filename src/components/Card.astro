@@ -114,18 +114,18 @@ const getCardStyles = () => {
   <div class="card__body">
     {
       clickable && (
-        <OpenButton color={backgroundColors.primary} text={content} />
+        <OpenButton color={backgroundColors.primary} text={content ?? ""} />
       )
     }
     <slot />
   </div>
   {
     backgroundType === "image-color" && (
-      <div
+      <Image
         class={`card__image-decoration card__image-decoration-${backgroundImagePosition}`}
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-        }}
+        src={backgroundImage}
+        alt={imageAlt}
+        lazy
       />
     )
   }
