@@ -1,0 +1,30 @@
+---
+export interface Props {
+  width?: string
+  height?: string
+  color?: string
+}
+
+const { width = "1rem", height = "1rem", color = "#000" } = Astro.props
+---
+<svg style={{
+    width,
+    height,
+    minWidth: width,
+    minHeight: height,
+    maxWidth: width,
+    maxHeight: height,
+  }} 
+  xmlns="http://www.w3.org/2000/svg"
+  class="ionicon"
+  viewBox="0 0 512 512"
+  color={color}>
+  <title>Plus icon</title>
+  <path
+    fill="none"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="32"
+    d="M256 112v288M400 256H112"></path>
+</svg>

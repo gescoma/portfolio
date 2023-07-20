@@ -10,6 +10,9 @@ export function openDialog(element: HTMLElement) {
   // add element to dialog__body
   addBodyToDialogPortal(element, dialog)
 
+  // add close button to dialog__body
+  addCloseButton(element, dialog)
+
   // add close event listener
   generateEventListeners(dialog)
 }
@@ -41,7 +44,7 @@ function getDialogPortal() {
 }
 
 function getCloseButton() {
-  const close = document.querySelector(".dialog__close")
+  const close = document.querySelector(".dialog-portal__button-close")
   if (!close) throw new Error("Dialog close button not found")
   return close
 }
@@ -63,6 +66,14 @@ function addBodyToDialogPortal(element: HTMLElement, dialog: HTMLElement) {
   if (!dialog__body) throw new Error("Dialog body not found")
   const body = getBody(element)
   dialog__body.appendChild(body)
+}
+
+function addCloseButton(element: HTMLElement, dialog: HTMLElement) {
+  const close__button = getCloseButton()
+  const dialog__close__button = element.querySelector(".dialog__close > svg")
+  if(!dialog__close__button) throw new Error("Dialog close button not found in dialog body")
+  const close__button__icon = dialog__close__button.cloneNode(true)
+  close__button.appendChild(close__button__icon)
 }
 
 /* EVENT LISTENER FUNCTIONS */
@@ -111,6 +122,9 @@ function createDialogPortal() {
   dialog.appendChild(dialog__overlay)
   const dialog__body = document.createElement("div")
   dialog__body.classList.add("dialog-portal__body")
+  const dialog__close__button = document.createElement("button")
+  dialog__close__button.classList.add("dialog-portal__button-close")
+  dialog__body.appendChild(dialog__close__button)
   dialog.appendChild(dialog__body)
   body.appendChild(dialog)
   return dialog
