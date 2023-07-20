@@ -9,5 +9,5 @@ export default defineConfig({
   adapter: vercel({
     analytics: true,
   }),
-  output: "static"
+  output: "hybrid"
 });
