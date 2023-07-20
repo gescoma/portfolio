@@ -1,24 +1,27 @@
 ---
+import { t } from "i18next"
+import Card from "./Card.astro"
+import type { MarkdownInstance } from "astro";
+
+interface Project {
+  title: string
+  brief: string
+  color: string
+  opacity: number
+  image: string
+  position: string
+}
+
 export interface Props {
-  project: {
-    frontmatter: {
-      title: string
-      brief: string
-      color: string
-      image: string
-      position: string
-      opacity: number
-    }
-    Content: string
-  }
+  project: MarkdownInstance<Record<string, any>>,
 }
 
 const {
-  project: { frontmatter, Content },
+  project,
 }: Props = Astro.props
 
-import { t } from "i18next"
-import Card from "./Card.astro"
+const frontmatter = project.frontmatter as Project
+const Content = project.Content
 ---
 
 <Card

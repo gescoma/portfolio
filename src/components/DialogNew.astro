@@ -57,17 +57,9 @@ import Close from "./icons/Close.astro"
 </style>
 
 <script>
-  import { t } from "i18next"
-import { openDialog } from "../scripts/dialogPortal"
-  const $ = (element: string) => document.querySelector<HTMLElement>(element)
+  import { openDialog } from "../scripts/dialogPortal"
   const $$ = (element: string) => document.querySelectorAll<HTMLElement>(element)
-  const cards = $$(".card-clickable")  
-
-  const height = $("main")?.getBoundingClientRect().top + "px" || "0px"
-
-  function deleteStyles(element: HTMLElement) {
-
-  }
+  const cards = $$(".card-clickable")
 
   if (cards.length > 0) {
     cards.forEach((card: HTMLElement) => {
