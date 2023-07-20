@@ -8,5 +8,6 @@ export default defineConfig({
   integrations: [astroI18next(), preact()],
   adapter: vercel({
     analytics: true,
-  })
+  }),
+  output: "static"
 });
