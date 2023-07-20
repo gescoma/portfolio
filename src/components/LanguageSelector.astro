@@ -1,0 +1,149 @@
+---
+import i18next from "i18next"
+import ISO6991 from "iso-639-1"
+import { localizePath } from "astro-i18next"
+
+interface languageMapping {
+  [localeCode: string]: string
+}
+
+export interface Props extends astroHTML.JSX.SelectHTMLAttributes {
+    showFlag?: boolean
+languageMapping?: languageMapping
+}
+
+const supportedLanguages = i18next.languages
+const currentLanguage = i18next.language
+
+const { pathname } = Astro.url
+
+const { showFlag = false, languageMapping, ...attributes } = Astro.props
+
+const currentLanguageNativeName = languageMapping
+  ? languageMapping[currentLanguage]
+  : ISO6991.getNativeName(currentLanguage)
+---
+
+<button {...attributes}>
+  {currentLanguageNativeName}
+</button>
+
+<select onchange="
+location = this.value;
+" {...attributes}>
+{
+  supportedLanguages.map((supportedLanguage: string) => {
+    let value = localizePath(pathname, supportedLanguage)
+
+    let nativeName = ""
+    if (
+      languageMapping &&
+      languageMapping.hasOwnProperty(supportedLanguage)
+    ) {
+    nativeName = languageMapping[supportedLanguage]
+    } else {
+      nativeName = ISO6991.getNativeName(supportedLanguage)
+    }
+
+    const label = nativeName
+
+    return (
+      <option value={value} selected={supportedLanguage === currentLanguage}>
+        {label}
+      </option>
+    )
+  })
+}
+</select>
+
+<style>
+  /* button {
+    background-color: transparent;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    font-size: 0.9rem;
+    color: #000;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    color: currentColor;
+    text-decoration-line: underline;
+    text-decoration-color: rgba(0, 0, 0, 0);
+    text-decoration-thickness: 0.05em;
+    text-underline-offset: 0.15em;
+    transition: text-decoration-color 300ms,
+    background-color 0.2s ease-in-out;
+  } */
+
+  button {
+    align-items: flex-start;
+    appearance: auto;
+    background-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-bottom-style: none;
+    border-bottom-width: 0px;
+    border-image-outset: 0;
+    border-image-repeat: stretch;
+    border-image-slice: 100%;
+    border-image-source: none;
+    border-image-width: 1;
+    border-left-color: rgb(0, 0, 0);
+    border-left-style: none;
+    border-left-width: 0px;
+    border-right-color: rgb(0, 0, 0);
+    border-right-style: none;
+    border-right-width: 0px;
+    border-top-color: rgb(0, 0, 0);
+    border-top-style: none;
+    border-top-width: 0px;
+    box-sizing: border-box;
+    color: rgb(0, 0, 0);
+    cursor: default;
+    display: inline-block;
+    font-family: Arial;
+    font-feature-settings: normal;
+    font-kerning: auto;
+    font-optical-sizing: auto;
+    font-size: 14.4px;
+    font-stretch: 100%;
+    font-style: normal;
+    font-variant-alternates: normal;
+    font-variant-caps: normal;
+    font-variant-east-asian: normal;
+    font-variant-ligatures: normal;
+    font-variant-numeric: normal;
+    font-variation-settings: normal;
+    font-weight: 500;
+    height: 30.4px;
+    letter-spacing: normal;
+    line-height: 14.4px;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    margin-bottom: 0px;
+    padding-bottom: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+    text-align: center;
+    text-decoration-color: rgba(0, 0, 0, 0);
+    text-decoration-line:underline;
+    text-decoration-style:solid;
+    text-decoration-thickness:0.72px;
+    text-indent:0px;
+    text-rendering:auto;
+    text-shadow:none;
+    text-transform:none;
+    text-underline-offset:2.16px;
+    transition-delay:0s, 0s;
+    transition-duration: 0.3s, 0.2s;
+    transition-property: text-decoration-color, background-color;
+    transition-timing-function: ease, ease-in-out;
+    width: 79.2312px;
+    word-spacing: 0px;
+  }
+
+  button:hover {
+      text-decoration-color: currentColor;
+      background-color: rgba(0, 0, 0, 0.1);
+  }
+</style>
