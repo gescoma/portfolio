@@ -13,7 +13,8 @@
 	},
 	"dependencies": {
 		"@astrojs/preact": "2.2.1",
-		"astro": "2.6.2",
+		"@astrojs/vercel": "3.7.3",
+		"astro": "2.8.5",
 		"astro-i18next": "1.0.0-beta.21",
 		"i18next": "22.5.1",
 		"i18next-fs-backend": "2.1.3",
