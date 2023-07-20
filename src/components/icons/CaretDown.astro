@@ -1,0 +1,21 @@
+---
+export interface Props {
+  width?: string
+  height?: string
+}
+
+const { width = "1rem", height = "1rem" } = Astro.props
+---
+
+<svg 
+  xmlns="http://www.w3.org/2000/svg" 
+  style={{ width, height }}
+  viewBox="0 0 512 512">
+  <path
+    fill="none"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="48"
+    d="M112 184l144 144 144-144"/>
+</svg>

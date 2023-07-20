@@ -1,6 +1,7 @@
 ---
 import { t } from "i18next"
 import LanguageSelector from "./LanguageSelector.astro";
+import MenuItem from "./MenuItem.astro";
 ---
 
 <header>
@@ -8,13 +9,13 @@ import LanguageSelector from "./LanguageSelector.astro";
   <nav>
     <ul>
       <li class="hide-mobile">
-        <a href="#">{t("header.home")}</a>
+        <MenuItem href="#about" text={t("header.home")}/>
       </li>
       <li class="hide-mobile">
-        <a href="#projects">{t("header.projects")}</a>
+        <MenuItem href="#projects" text={t("header.projects")}/>
       </li>
       <li class="hide-mobile">
-        <a href="#contact">{t("header.contact")}</a>
+        <MenuItem href="#contact" text={t("header.contact")}/>
       </li>
       <li>
         <LanguageSelector class="languages" />
@@ -45,22 +46,6 @@ import LanguageSelector from "./LanguageSelector.astro";
     display: flex;
     list-style: none;
     align-items: center;
-  }
-  a {
-    text-decoration: none;
-    font-size: 0.9rem;
-    color: #000;
-    padding: 0.5rem 1rem;
-    transition: background-color 0.2s ease-in-out;
-  }
-
-  a.active {
-    font-weight: 700;
-  }
-
-  a:hover {
-    background-color: #f0f0f0;
-    border-radius: 0.5rem;
   }
 
   .hide-mobile {

@@ -4,5 +4,8 @@ import preact from "@astrojs/preact";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [astroI18next(), preact()]
+  integrations: [astroI18next(), preact()],
+  adapter: vercel({
+    analytics: true,
+  })
 });
