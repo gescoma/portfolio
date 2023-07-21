@@ -2,6 +2,7 @@
 import { t } from "i18next"
 import LanguageSelector from "./LanguageSelector.astro";
 import MenuItem from "./MenuItem.astro";
+import DarkModeButton from "./DarkModeButton.astro";
 ---
 
 <header>
@@ -19,6 +20,9 @@ import MenuItem from "./MenuItem.astro";
       </li>
       <li>
         <LanguageSelector class="languages" />
+      </li>
+      <li>
+        <DarkModeButton />
       </li>
     </ul>
   </nav>

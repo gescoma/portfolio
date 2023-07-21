@@ -28,7 +28,9 @@
   --background-active: hsl(0, 0%, 99%);
   --background-overlay: hsla(0, 0%, 0%, 50%);
 
-  --transition: color 300ms, background-color 300ms;
+  --transition-color: color 300ms;
+  --transition-background: background-color 300ms;
+  --transition-color-background: var(--transition-color), var(--transition-background);
 }
 
 @media (prefers-color-scheme: dark) {
