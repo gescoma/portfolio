@@ -28,3 +28,16 @@
   --background-active: hsl(0, 0%, 99%);
   --background-overlay: hsla(0, 0%, 0%, 50%);
 }
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-light: hsla(191, 17%, 88%, 15%);
+
+    --font-color: var(--color-white);
+
+    --background: var(--color-black);
+    --background-hover: hsl(0, 0%, 20%);
+    --background-overlay: hsla(0, 0%, 100%, 20%);
+    --background-active: hsl(0, 0%, 10%);
+  }
+}
