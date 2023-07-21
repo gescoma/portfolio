@@ -1,0 +1,12 @@
+<button id="dark-mode__button" class="dark-mode__button" data-theme="light">
+  Dark
+</button>
+
+<script >
+  const btn = document.querySelector('#dark-mode__button');
+  const body = document.querySelector('body');
+
+  btn && btn.addEventListener('click', () => {
+    body && body.classList.toggle('dark-theme');
+  });
+</script>

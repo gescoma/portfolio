@@ -27,6 +27,8 @@
   --background-hover: hsl(0, 0%, 94%);
   --background-active: hsl(0, 0%, 99%);
   --background-overlay: hsla(0, 0%, 0%, 50%);
+
+  --transition: color 300ms, background-color 300ms;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -40,4 +42,15 @@
     --background-overlay: hsla(0, 0%, 100%, 20%);
     --background-active: hsl(0, 0%, 10%);
   }
+}
+
+html:has(body.dark-theme) {
+  --color-light: hsla(191, 17%, 88%, 15%);
+  
+  --font-color: var(--color-white);
+
+  --background: var(--color-black);
+  --background-hover: hsl(0, 0%, 20%);
+  --background-overlay: hsla(0, 0%, 100%, 20%);
+  --background-active: hsl(0, 0%, 10%);
 }
