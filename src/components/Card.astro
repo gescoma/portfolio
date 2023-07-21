@@ -310,36 +310,26 @@ const getCardStyles = () => {
   /* IMAGE DECORATION */
 
   .card__image-decoration {
-    position: absolute;
-    z-index: -1;
+    margin-top: 1rem;
     width: 100%;
     min-height: 250px;
-    overflow: hidden;
-    background-size: cover;
     border-radius: 0.6rem;
     overflow: hidden;
   }
 
   .card__image-decoration-center {
-    bottom: -1rem;
-    left: 3rem;
-    right: 3rem;
-    width: calc(100% - 6rem);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: top center;
+    object-fit: cover;
+    object-position: center;
   }
 
   .card__image-decoration-left {
     bottom: -1rem;
     right: 3rem;
-    background-position: top right;
   }
 
   .card__image-decoration-right {
     bottom: -1rem;
     left: 1.5rem;
-    background-position: top left;
   }
 
   .card__active .card__image-decoration {

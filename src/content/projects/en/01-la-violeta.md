@@ -4,7 +4,7 @@ brief: A website for a local business.
 date: 2019-01-01
 type: project
 image: images/projects/la-violeta-web.png
-position: "right"
+position: "center"
 color: "#a29bfe"
 tags:
   - design

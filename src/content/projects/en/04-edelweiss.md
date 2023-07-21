@@ -4,7 +4,7 @@ brief: A CRM platform for houses administration.
 date: 2019-01-01
 type: project
 image: images/projects/edelweiss-web.png
-position: "right"
+position: "center"
 color: "#f39c12"
 opacity: "0.25"
 tags:
