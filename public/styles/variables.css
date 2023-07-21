@@ -5,13 +5,7 @@
   --color-black: hsl(0, 0%, 0%);
   --color-primary: hsl(218, 36%, 65%);
   --color-secundary: hsl(225, 42%, 34%);
-  --color-accent: hsl(47, 100%, 67%);
-  --color-light: hsla(191, 18%, 88%, 0.5);
-
-  --gradient-accent: linear-gradient(45deg,
-      var(--color-accent),
-      var(--color-accent) 30%,
-      var(--color-white) 60%);
+  --color-light: hsla(191, 18%, 88%, 50%);
 
   --font-size: 16px;
   --font-primary: "Satoshi-Variable",
@@ -28,11 +22,9 @@
     sans-serif;
   --font-color: var(--color-black);
   
-
   --background: var(--color-white);
   --background-light: var(--color-light);
   --background-hover: hsl(0, 0%, 94%);
   --background-active: hsl(0, 0%, 99%);
-  --background-overlay: hsla(0, 0%, 0%, 0.5);
+  --background-overlay: hsla(0, 0%, 0%, 50%);
 }
-
