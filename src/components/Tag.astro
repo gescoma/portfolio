@@ -17,14 +17,14 @@ const {
   color = "var(--color-primary)",
 } = Astro.props
 
-const colorFondo = color
-const colorTexto = getContrastColor(colorFondo)
+const backgroundColor = color
+const textColor = getContrastColor(backgroundColor)
 ---
 
 <span
   style={{
     backgroundColor: color,
-    color: colorTexto,
+    color: textColor,
   }}
   >{title}
   {
@@ -34,8 +34,8 @@ const colorTexto = getContrastColor(colorFondo)
       <Image
         src={iconURL}
         style={{
-          fill: colorTexto,
-          filter: `invert(${colorTexto === "#fff" ? "1" : "0"}`,
+          fill: textColor,
+          filter: `invert(${textColor === "#fff" ? "1" : "0"}`,
         }}
         alt={`${title} icon`}
         size={`icon-${size}`}

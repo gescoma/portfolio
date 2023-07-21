@@ -8,7 +8,7 @@
 .dialog-portal__overlay {
   position: absolute;
   inset: 0px;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: var(--background-overlay);
   opacity: 0;
   animation: fadeIn 0.2s ease-in-out forwards;
 }
@@ -50,7 +50,7 @@
 /* BODY */
 
 .dialog-portal__body > div {
-  background-color: #fff;
+  background-color: var(--background);
   padding: 2rem;
   max-height: calc(100vh - 104px);
   max-height: calc(100dvh - 100px);
@@ -76,6 +76,7 @@
   height: 2.2rem;
   opacity: 0.5;
   transition: opacity 0.1s ease-in-out;
+  color: var(--font-color);
 }
 
 .dialog-portal__button-close:hover {

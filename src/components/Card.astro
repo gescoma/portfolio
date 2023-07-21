@@ -42,8 +42,8 @@ const {
   size = "medium",
   backgroundType = "color",
   backgroundColors = {
-    primary: "var(--secondary-hex)",
-    secondary: "var(--accent-hex)",
+    primary: "var(--color-secundary)",
+    secondary: "var(--color-primary--color-primary)",
     opacity: 0.4,
   },
   backgroundImage = "https://placehold.co/600x500",
@@ -64,7 +64,7 @@ const getCardStyles = () => {
   }
 
   if (backgroundType === "image-color") {
-    styles["--font-color"] = "var(--black)"
+    styles["--font-color"] = "var(--font-color)"
     styles["--primary-color"] = hexToRGB(
       backgroundColors.primary,
       backgroundColors.opacity || 0.4
@@ -150,7 +150,7 @@ const getCardStyles = () => {
     display: flex;
     flex-direction: column;
     padding: 2rem;
-    background-color: rgba(218, 227, 229, 15%);
+    background-color: var(--background-light);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     height: 100%;
