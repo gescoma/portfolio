@@ -1,13 +1,12 @@
 ---
-import Layout from "../layouts/Layout.astro"
-import { t, changeLanguage } from "i18next"
+import Layout from "../layouts/Layout.astro";
+import { t, changeLanguage } from "i18next";
+import Hero from "../components/Hero.astro";
+import AboutMe from "../components/AboutMe.astro";
+import Projects from "../components/Projects.astro";
+import ContactMe from "../components/ContactMe.astro";
 
-import Hero from "../components/Hero.astro"
-import AboutMe from "../components/AboutMe.astro"
-import Projects from "../components/Projects.astro"
-import ContactMe from "../components/ContactMe.astro"
-
-changeLanguage("en")
+changeLanguage("en");
 ---
 
 <Layout title={t("title")}>

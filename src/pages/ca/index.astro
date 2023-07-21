@@ -1,138 +1,32 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import Card from "../../components/Card.astro";
-import i18next, { t, changeLanguage } from "i18next";
-import { Trans } from "astro-i18next/components";
-import Techs from "../../data/techs.json";
-import Tag from "../../components/Tag.astro";
-import ContactButtons from "../../components/ContactButtons.astro";
-import Image from "../../components/Image.astro";
+import { t, changeLanguage } from "i18next";
+import Hero from "../../components/Hero.astro";
+import AboutMe from "../../components/AboutMe.astro";
+import Projects from "../../components/Projects.astro";
+import ContactMe from "../../components/ContactMe.astro";
 
 changeLanguage("ca");
-
-const projects = await Astro.glob("../../content/projects/*/*.md");
-const filteredProjects = projects.filter((project) => {
-    const url = project.file.split("/");
-    const lang = url[url.length - 2];
-    return lang === i18next.language;
-});
 ---
 
 <Layout title={t("title")}>
   <section class="presentation" title="presentation" id="home">
-    <div class="hero">
-      <Card
-        title={t("presentation.title")}
-        body={t("presentation.body")}
-        size="large"
-        backgroundType="organic-gradient"
-        backgroundColors={{
-          primary: "var(--secondary-hex)",
-          secondary: "var(--accent-hex)",
-        }}
-      >
-        <ContactButtons />
-      </Card>
-    </div>
-    <div class="about-me">
-      <Card
-        backgroundType="image"
-        backgroundImage="/images/profile_picture.jpeg"
-        size="large"
-        clickable
-      >
-        <div slot="dialog-content">
-          <div class="dialog__header">
-            <Image
-              src="/images/profile_picture_1.jpeg"
-              alt={t("about-me.image-alt")}
-              size="medium"
-              rounded="small"
-              square
-              lazy
-              blur
-            />
-            <h2>Gerard Escòlies Martínez</h2>
-          </div>
-          <div class="dialog__content">
-            <h2>{t("about-me.title")}</h2>
-            <Trans i18nKey="about-me.body">
-              <p></p>
-              <p></p>
-              <p></p>
-              <p></p>
-              <p></p>
-            </Trans>
-            <h2>{t("about-me.habilities.title")}</h2>
-            <p>{t("about-me.habilities.body")}</p>
-            <h2>{t("about-me.habilities.subtitle")}</h2>
-            <div class="about-me__habilities__tabs">
-              {
-                Techs.technologies.map((tech) => (
-                  <Tag
-                    title={tech.name}
-                    color={tech.color}
-                    icon={tech.image ? true : false}
-                    iconURL={tech.image}
-                  />
-                ))
-              }
-            </div>
-          </div>
-        </div>
-      </Card>
-    </div>
+    <Hero />
+    <AboutMe />
   </section>
   <section class="projects" title="Projects" id="projects">
-    {
-      filteredProjects &&
-        filteredProjects.map(({ Content, ...project }) => (
-          <Card
-            title={project.frontmatter.title}
-            body={project.frontmatter.brief}
-            backgroundType="image-color"
-            backgroundColors={{ primary: project.frontmatter.color }}
-            backgroundImage={project.frontmatter.image}
-            clickable
-          >
-            <div slot="dialog-content">
-              <div class="dialog__content">
-                <Content />
-              </div>
-            </div>
-          </Card>
-        ))
-    }
+    <Projects />
   </section>
   <section title="Contact-me" id="contact" class="contact-me">
-    <Card
-      title={t("contact.title")}
-      body={t("contact.body")}
-      size="large"
-      backgroundType="organic-gradient"
-      backgroundColors={{
-        primary: "var(--secondary-hex)",
-        secondary: "var(--accent-hex)",
-      }}
-    >
-      <ContactButtons />
-    </Card>
+    <ContactMe />
   </section>
 </Layout>
 
 <style>
-  .hero {
-    order: 2;
-  }
-  .about-me {
-    order: 1;
-    min-height: 300px;
-  }
   .presentation {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
-    margin: 0 0 1rem 0;
   }
   .projects {
     display: grid;
@@ -140,75 +34,22 @@ const filteredProjects = projects.filter((project) => {
     gap: 1rem;
     margin: 1rem 0;
   }
-
-  .dialog__header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .dialog__header h2 {
-    margin: 0;
-  }
-  .dialog__header img.profile {
-    margin: 0;
-    max-width: 100px;
-    width: 100%;
-    max-height: 100px;
-    height: 100%;
-    border-radius: 0.75rem;
-    object-fit: cover;
-  }
-
-  .dialog__content h3,
-  .dialog__content h2 {
-    margin: 2rem 0;
-  }
-
-  .about-me__habilities__tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
   .contact-me {
-    margin: 1rem 0;
+    margin: 0 0 1rem 0;
   }
+
   @media (min-width: 768px) {
-    .hero {
-      order: 1;
-    }
-    .about-me {
-      order: 2;
-      min-height: 500px;
-    }
     .presentation {
       grid-template-columns: minmax(420px, 700px) minmax(200px, 272px);
       gap: 2rem;
-      margin: 0 0 1rem 0;
     }
     .projects {
       grid-template-columns: repeat(2, 1fr);
       gap: 2rem;
       margin: 2rem 0;
     }
-
     .contact-me {
-      margin: 2rem 0;
+      margin: 0 0 2rem 0;
     }
-  }
-</style>
-<style is:global>
-  .dialog__content h3,
-  .dialog__content h2 {
-    margin: 2rem 0;
-  }
-
-  .about-me img {
-    object-position: 0 30%;
-  }
-
-  .about-me .image {
-    background-position: 0 30%;
   }
 </style>
