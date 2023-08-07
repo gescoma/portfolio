@@ -29,8 +29,8 @@ const { color = "black", text } = Astro.props
     position: absolute;
     top: 1.5rem;
     right: 1.5rem;
+    transition: var(--transition-background);
   }
-
 
   @media (max-width: 767px) {
     .link-notice :global(svg) {
@@ -52,7 +52,7 @@ const { color = "black", text } = Astro.props
       border-radius: 1.5rem;
       max-width: 3rem;
       max-height: 3rem;
-      transition: max-width 0.2s ease-in-out;
+      transition: max-width 0.2s ease-in-out, var(--transition-background);
     }
 
     :global(.card):hover .link-notice {

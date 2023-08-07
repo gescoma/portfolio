@@ -3,10 +3,10 @@ export interface Props extends astroHTML.JSX.AnchorHTMLAttributes {
   text: string
 }
 
-const {text, ...attributes } = Astro.props
+const { text, ...attributes } = Astro.props
 ---
 
-<a {...attributes }>
+<a {...attributes}>
   {text}
 </a>
 
@@ -15,8 +15,8 @@ const {text, ...attributes } = Astro.props
     text-decoration: none;
     font-size: 0.9rem;
     padding: 0.5rem 1rem;
-    transition: background-color 200ms ease-in-out,
-                text-decoration-color 300ms,;
+    transition: background-color 200ms ease-in-out, text-decoration-color 300ms,
+      var(--transition-color);
     display: inline-block;
   }
 

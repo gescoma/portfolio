@@ -9,8 +9,8 @@ interface languageMapping {
 }
 
 export interface Props extends astroHTML.JSX.SelectHTMLAttributes {
-    showFlag?: boolean
-languageMapping?: languageMapping
+  showFlag?: boolean
+  languageMapping?: languageMapping
 }
 
 const supportedLanguages = i18next.languages
@@ -23,8 +23,8 @@ const { showFlag = false, languageMapping, ...attributes } = Astro.props
 const currentLanguageNativeName = languageMapping
   ? languageMapping[currentLanguage]
   : ISO6991.getNativeName(currentLanguage)
-
 ---
+
 <div class="dropdown" data-open="false">
   <button class="language-button" {...attributes}>
     {currentLanguageNativeName}
@@ -38,10 +38,18 @@ const currentLanguageNativeName = languageMapping
             ? languageMapping[language]
             : ISO6991.getNativeName(language)
 
-          if(language === currentLanguage) return (
-            <li><span class="current-language">{label}</span></li>)
+          if (language === currentLanguage)
+            return (
+              <li>
+                <span class="current-language">{label}</span>
+              </li>
+            )
 
-          return <li><a href={localizePath(pathname, language)}>{label}</a></li>
+          return (
+            <li>
+              <a href={localizePath(pathname, language)}>{label}</a>
+            </li>
+          )
         })
       }
     </ul>
@@ -54,14 +62,7 @@ const currentLanguageNativeName = languageMapping
     background-color: transparent;
     font-size: 0.9rem;
     padding: 0.5rem 0.75rem 0.5rem 1rem;
-    font-weight: 600;
     font-family: var(--font-primary);
-    text-decoration-line: underline;
-    text-decoration-color: rgba(0, 0, 0, 0);
-    text-decoration-thickness: 0.05em;
-    text-underline-offset: 0.15em;
-    transition: text-decoration-color 300ms,
-                background-color 200ms ease-in-out;
     cursor: pointer;
     border-radius: 0.5rem;
     display: flex;
@@ -69,25 +70,25 @@ const currentLanguageNativeName = languageMapping
     gap: 0.5rem;
     position: relative;
     z-index: 99999;
-    color: var(--font-color)
   }
 
   button :global(svg) {
     margin-top: 0.1rem;
-    transition: all 100ms ease-in-out;
+    transition: transform 100ms ease-in-out;
   }
 
   button:hover {
-      text-decoration-color: currentColor;
-      background-color: var(--background-hover);
+    text-decoration-color: currentColor;
+    background-color: var(--background-hover);
   }
 
   .dropdown[data-open="true"] button {
-      background-color: var(--background-hover);
+    background-color: var(--background-hover);
+    transition: var(--transition-color-background);
   }
 
   /* DROPDOWN STYLES */
-  
+
   .dropdown {
     position: relative;
   }
@@ -98,7 +99,7 @@ const currentLanguageNativeName = languageMapping
 
   .dropdown[data-open="true"] :global(svg) {
     transform: rotate(180deg);
-    margin-top: 0rem
+    margin-top: 0rem;
   }
 
   .dropdown[data-open="true"] .dropdown__body,
@@ -111,7 +112,8 @@ const currentLanguageNativeName = languageMapping
 
   .dropdown[data-open="closing"] .dropdown__body {
     opacity: 0;
-    animation: FadeOutUp 150ms ease-in-out;}
+    animation: FadeOutUp 150ms ease-in-out;
+  }
 
   .dropdown[data-open="false"] .dropdown__body {
     display: none;
@@ -143,15 +145,14 @@ const currentLanguageNativeName = languageMapping
   }
 
   .dropdown__body ul li span.current-language {
-    background-color: rgba(240,240,240,0.5);
+    background-color: rgba(240, 240, 240, 0.5);
     padding: 0.5rem 1rem;
     display: block;
     font-weight: 600;
-    
   }
 
   .dropdown__body ul li a:hover {
-    background-color: rgba(240,240,240,0.5);
+    background-color: rgba(240, 240, 240, 0.5);
   }
 
   /* TRANSITIONS */
@@ -201,7 +202,7 @@ const currentLanguageNativeName = languageMapping
     button.addEventListener("click", (e) => {
       e.stopPropagation()
       const parent = button.parentElement
-      if(!parent) throw new Error("No parent element found")
+      if (!parent) throw new Error("No parent element found")
       const opened = parent.dataset.open === "true"
       if (!opened) {
         openDropdown(parent)
@@ -221,7 +222,4 @@ const currentLanguageNativeName = languageMapping
       element.dataset.open = `false`
     }, 300)
   }
-
-
 </script>
-

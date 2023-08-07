@@ -41,17 +41,19 @@ const { title } = Astro.props
         margin: 0;
       }
 
-      a {
+      a,
+      .language-button {
         font-weight: 600;
         color: currentColor;
         text-decoration-line: underline;
         text-decoration-color: rgba(0, 0, 0, 0);
         text-decoration-thickness: 0.05em;
         text-underline-offset: 0.15em;
-        transition: text-decoration-color 300ms;
+        transition: text-decoration-color 300ms, var(--transition-color);
       }
 
-      a:hover {
+      a:hover,
+      .language-button:hover {
         text-decoration-color: var(--font-color);
       }
     </style>
@@ -59,6 +61,7 @@ const { title } = Astro.props
     <style>
       html {
         background-color: var(--background);
+        transition: var(--transition-background);
       }
 
       body {
@@ -68,6 +71,7 @@ const { title } = Astro.props
         font-family: var(--font-primary);
         font-size: var(--font-size);
         color: var(--font-color);
+        transition: var(--transition-color);
       }
 
       @media (min-width: 768px) {

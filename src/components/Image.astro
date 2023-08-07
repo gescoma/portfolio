@@ -49,7 +49,7 @@ if (!["jpg", "jpeg", "png", "svg"].includes(imageExtension)) {
   throw new Error("Image component requires a valid image extension")
 }
 
-const { "class": className = "", ...restOfProps } = attributes
+const { class: className = "", ...restOfProps } = attributes
 ---
 
 {
@@ -64,7 +64,13 @@ const { "class": className = "", ...restOfProps } = attributes
           ...style,
         }}
       >
-        <img alt={alt} loading="lazy" src={src} class={className} {...restOfProps} />
+        <img
+          alt={alt}
+          loading="lazy"
+          src={src}
+          class={className}
+          {...restOfProps}
+        />
       </div>
     ) : (
       <img
@@ -129,6 +135,7 @@ const { "class": className = "", ...restOfProps } = attributes
     opacity: 0;
     animation: pulse 2.5s infinite;
     background-color: var(--background);
+    transition: var(--transition-background);
   }
 
   .image-lazy-blur.image-lazy--loaded {

@@ -19,8 +19,11 @@
   --background-active: hsl(0, 0%, 99%);
   --background-overlay: hsla(0, 0%, 0%, 50%);
 
-  --transition-color: color 300ms;
-  --transition-background: background-color 300ms;
+  --transition-time: 150ms;
+  --transition-style: ease;
+  --transition-color: color var(--transition-time) var(--transition-style);
+  --transition-background: background-color var(--transition-time)
+    var(--transition-style);
   --transition-color-background: var(--transition-color),
     var(--transition-background);
 }
