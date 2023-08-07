@@ -29,7 +29,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root.not(html.theme-light),
+  html:not(html.theme-light),
   html.theme-dark {
     --color-light: hsla(191, 17%, 88%, 15%);
 
