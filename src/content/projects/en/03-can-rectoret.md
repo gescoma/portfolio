@@ -15,12 +15,12 @@ tags:
 
 ## The project
 
-Aledo Distribucions is a local business that sells local and galician drinks. They needed a website to show their products and their contact information. It is important to not allow people with less than 18 years old to see the website. Also the client wanted to have diferent prices for diferent client types for example for bars and restaurants they have a price and the particular have another one.
+Can rectoret is a traditional catalan restaurant, a farmhouse from the seventeenth century, that wanted a website to show their products and their contact information. They also wanted a page where their clients could see the menus, the menu and the different rooms they have to be able to book. The website also has a section with the latest news. They also wanted the website to comply with the data protection law. The client also wanted the pages of the website to be in different languages.
 
 ## The process
 
-The client wanted a website that was easy to update and maintain. I decided to use Wordpress as a CMS and I created a custom theme for them. We used woocomerce plugin to create the shop and I used an existing and reputable plugin to manage the age restriction. And another existing plugin to manage the diferent prices for the diferent client types.
+The client wanted a website that was easy to update and maintain. I decided to use Wordpress as a CMS and I created a custom theme for them. We used posts for the news and we created a custom post type for both the rooms and the menus and the menus. We used a plugin for the translation of the website. And we used a plugin for the management of the reservations.
 
 ## The result
 
-The client was very happy with the result. They can now update the website themselves and they can manage the diferent prices for the diferent client types easily. Also the webpage complies with all the local, national and european laws about age restriction and alcohol online shop.
+The client was satisfied with the result. The website has a modern and elegant tone that fits with the idea they had. Finally the part of the reservations was decided to remove them because they manage them manually by phone.

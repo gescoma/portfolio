@@ -16,12 +16,12 @@ tags:
 
 ## The project
 
-Aledo Distribucions is a local business that sells local and galician drinks. They needed a website to show their products and their contact information. It is important to not allow people with less than 18 years old to see the website. Also the client wanted to have diferent prices for diferent client types for example for bars and restaurants they have a price and the particular have another one.
+Edelweiss is a CRM platform for houses administration. The houses administrators can use the platform to manage their houses and their clients. The platform allows the houses administrators to manage their clients, their houses, their contracts, their invoices and their incidents. It also allows the clients to access the platform to see their invoices and their incidents. The platform also allows the houses administrators to send invoices and incidents to their clients by email.
 
 ## The process
 
-The client wanted a website that was easy to update and maintain. I decided to use Wordpress as a CMS and I created a custom theme for them. We used woocomerce plugin to create the shop and I used an existing and reputable plugin to manage the age restriction. And another existing plugin to manage the diferent prices for the diferent client types.
+It is a project that was carried out as a team. Once the idea was developed, we considered what was the best tool to carry it out, the project is made with Next.js (react) and supabase (backend as a service, it works with a database with postgreSQL). All the elements of the UI are componentized so that they are reusable. We also used a linter to make sure that the code complied with the company's code standards. We also used a version control system to be able to work as a team (github). We also used a task management system to be able to organize ourselves (github projects). We also used a communication system to be able to communicate (discord with 2 or 3 weekly meetings). We also used a bug management system to be able to solve the bugs (github issues). We also used a deployment system to be able to deploy the project (vercel).
 
 ## The result
 
-The client was very happy with the result. They can now update the website themselves and they can manage the diferent prices for the diferent client types easily. Also the webpage complies with all the local, national and european laws about age restriction and alcohol online shop.
+The result is a CRM platform for houses administration. The houses administrators can use the platform to manage their houses and their clients. The platform allows the houses administrators to manage their clients, their houses, their contracts, their invoices and their incidents. It also allows the clients to access the platform to see their invoices and their incidents. The platform also allows the houses administrators to send invoices and incidents to their clients by email.
