@@ -1,22 +1,25 @@
 ---
 import { t } from "i18next"
-import LanguageSelector from "./LanguageSelector.astro";
-import MenuItem from "./MenuItem.astro";
-import DarkModeButton from "./DarkModeButton.astro";
+import LanguageSelector from "./LanguageSelector.astro"
+import MenuItem from "./MenuItem.astro"
+import DarkModeButton from "./DarkModeButton.astro"
 ---
 
 <header>
-  <h1>Gerard Escòlies Martínez</h1>
+  <h1>
+    <img src="/favicon.svg" alt="Logo" width="32" height="32" />
+    Gerard Escòlies Martínez
+  </h1>
   <nav>
     <ul>
       <li class="hide-mobile">
-        <MenuItem href="#about" text={t("header.home")}/>
+        <MenuItem href="#about" text={t("header.home")} />
       </li>
       <li class="hide-mobile">
-        <MenuItem href="#projects" text={t("header.projects")}/>
+        <MenuItem href="#projects" text={t("header.projects")} />
       </li>
       <li class="hide-mobile">
-        <MenuItem href="#contact" text={t("header.contact")}/>
+        <MenuItem href="#contact" text={t("header.contact")} />
       </li>
       <li>
         <LanguageSelector class="languages" />
@@ -33,12 +36,15 @@ import DarkModeButton from "./DarkModeButton.astro";
     font-size: 1.2rem;
     font-weight: 700;
     margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
 
-  h1::before {
+  /* h1::before {
     content: "👋";
     margin-right: 0.5rem;
-  }
+  } */
 
   header {
     display: flex;
