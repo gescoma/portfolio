@@ -1,12 +1,57 @@
-<button id="dark-mode__button" class="dark-mode__button" data-theme="light">
-  Dark
+---
+import Dark from "./icons/Dark.astro"
+import Ligth from "./icons/Ligth.astro"
+---
+
+<button
+  id="dark-mode__button"
+  class="dark-mode__button"
+  data-theme="theme-light"
+>
+  <span class="dark animate__left">
+    <Dark />
+  </span>
+  <span class="light animate__left">
+    <Ligth />
+  </span>
 </button>
 
-<script >
-  const btn = document.querySelector('#dark-mode__button');
-  const body = document.querySelector('body');
+<style>
+  .dark-mode__button {
+    background-color: transparent;
+    color: var(--color-text);
+    padding: 0.25rem 0.7rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
 
-  btn && btn.addEventListener('click', () => {
-    body && body.classList.toggle('dark-theme');
-  });
-</script>
+  .dark-mode__button span {
+    display: flex;
+  }
+
+  .dark-mode__button:hover {
+    background-color: var(--background-hover);
+  }
+
+  .dark-mode__button[data-theme="theme-light"] .light {
+    display: none;
+    visibility: hidden;
+  }
+  .dark-mode__button[data-theme="theme-dark"] .dark {
+    display: none;
+    visibility: hidden;
+  }
+
+  .animate__left {
+    animation: fadeLeft 0.1s ease-in-out;
+  }
+
+  .animate-out__right {
+    animation: fadeRight 0.1s ease-in-out;
+    animation-direction: reverse;
+  }
+</style>
+
+<script src="../scripts/darkMode.ts"></script>
