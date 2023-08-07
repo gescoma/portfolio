@@ -55,6 +55,16 @@
     "color": "#000000"
   },
   {
+    "name": "WordPress",
+    "image": "/images/icons/logo-wordpress.svg",
+    "color": "#21759b"
+  },
+  {
+    "name": "Drupal",
+    "image": "/images/icons/logo-drupal.svg",
+    "color": "#0678be"
+  },
+  {
     "name": "Swift",
     "image": "/images/icons/logo-swift.svg",
     "color": "#ffac45"
