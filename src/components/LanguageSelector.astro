@@ -107,12 +107,12 @@ const currentLanguageNativeName = languageMapping
     display: block;
     position: absolute;
     z-index: 99990;
-    animation: FadeInDown 150ms ease-in-out;
+    animation: FadeInDown 100ms ease-in-out;
   }
 
   .dropdown[data-open="closing"] .dropdown__body {
     opacity: 0;
-    animation: FadeOutUp 150ms ease-in-out;
+    animation: FadeOutUp 100ms ease-in-out;
   }
 
   .dropdown[data-open="false"] .dropdown__body {
@@ -148,7 +148,7 @@ const currentLanguageNativeName = languageMapping
     background-color: rgba(240, 240, 240, 0.5);
     padding: 0.5rem 1rem;
     display: block;
-    font-weight: 600;
+    font-weight: 500;
   }
 
   .dropdown__body ul li a:hover {
@@ -190,6 +190,6 @@ const currentLanguageNativeName = languageMapping
     element.dataset.open = `closing`
     setTimeout(() => {
       element.dataset.open = `false`
-    }, 300)
+    }, 150)
   }
 </script>
